@@ -41,15 +41,15 @@ class CookieRunKingdom:
         
         print("\n\n")
 
-        self.userNickName = tempUserName    # 이름
-        self.userLevel = 0                  # 레벨
-        self.userOwnCookies = ["용감한 쿠키"]  # 보유 쿠키
-        self.userCookiesCounter = 1         # 보유 쿠키 수 저장
-        self.userGold = 0                   # 골드
-        self.userDiamond = 1000                # 다이아몬드
-        self.currentStage = 1               # 현재 스테이지 저장
-        self.frame = 1                      # 현재 남아있는 뽑기 틀의 개수 저장
-        self.cookiePiece = 0                # 강화에 쓸 쿠키 조각 개수 저장
+        self.userNickName = tempUserName                 # 이름
+        self.userLevel = 0                               # 레벨
+        self.userOwnCookieNameToLevel = {"용감한 쿠키": 1}  # 보유 쿠키
+        self.userCookiesCounter = 1                      # 보유 쿠키 수 저장
+        self.userGold = 0                                # 골드
+        self.userDiamond = 1000                          # 다이아몬드
+        self.currentStage = 1                            # 현재 스테이지 저장
+        self.frame = 1                                   # 현재 남아있는 뽑기 틀의 개수 저장
+        self.cookiePiece = 0                             # 강화에 쓸 쿠키 조각 개수 저장
 
         # 쿠폰 코드 저장 (리스트 형태로 보상이 저장 [골드, 다이아몬드, 쿠키틀])
         self.couponCode = {"암소의 과학 공부": [10000, 3000, 100], "암소의 포트폴리오": [3000, 4500, 125]}
@@ -88,12 +88,14 @@ class CookieRunKingdom:
     # 보유중인 쿠키 출력
     def getCurrentOwnCookies(self):
         print("-" * 50)
-        for cookieIndex in range(len(self.userOwnCookies)):
-            if (cookieIndex + 1) % 5 == 0:
+
+        cnt = 1
+        for key in self.userOwnCookieNameToLevel.keys():
+            if cnt % 5 == 0:
                 print()
             
-            print(f"[ {self.userOwnCookies[cookieIndex]} ]")
-            if cookieIndex + 1 < len(self.userOwnCookies):
+            print(f"[ {key} ]", end='')
+            if cnt < len(self.userOwnCookieNameToLevel):
                 print(", ", end='')
         
         print()
@@ -111,7 +113,7 @@ class CookieRunKingdom:
             if chosenResult <= 50:
                 appendCookie = commonCookiesList[random.randint(0, len(commonCookiesList) - 1)]
 
-                if appendCookie in self.userOwnCookies:
+                if appendCookie in self.userOwnCookieNameToLevel.keys():
                     print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                     print("쿠키 조각 5개\n")
                     self.cookiePiece += 5
@@ -119,7 +121,7 @@ class CookieRunKingdom:
             elif chosenResult <= 75:
                 appendCookie = rareCookiesList[random.randint(0, len(rareCookiesList) - 1)]
 
-                if appendCookie in self.userOwnCookies:
+                if appendCookie in self.userOwnCookieNameToLevel.keys():
                     print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                     print("쿠키 조각 10개\n")
                     self.cookiePiece += 10
@@ -127,7 +129,7 @@ class CookieRunKingdom:
             elif chosenResult <= 85:
                 appendCookie = epicCookiesList[random.randint(0, len(epicCookiesList) - 1)]
 
-                if appendCookie in self.userOwnCookies:
+                if appendCookie in self.userOwnCookieNameToLevel.keys():
                     print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                     print("쿠키 조각 25개\n")
                     self.cookiePiece += 25
@@ -135,7 +137,7 @@ class CookieRunKingdom:
             elif chosenResult <= 91:
                 appendCookie = legendaryCookiesList[random.randint(0, len(legendaryCookiesList) - 1)]
 
-                if appendCookie in self.userOwnCookies:
+                if appendCookie in self.userOwnCookieNameToLevel.keys():
                     print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                     print("쿠키 조각 75개\n")
                     self.cookiePiece += 75
@@ -143,7 +145,7 @@ class CookieRunKingdom:
             elif chosenResult <= 99:
                 appendCookie = ancientCookiesList[random.randint(0, len(ancientCookiesList) - 1)]
 
-                if appendCookie in self.userOwnCookies:
+                if appendCookie in self.userOwnCookieNameToLevel.keys():
                     print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                     print("쿠키 조각 50개\n")
                     self.cookiePiece += 50
@@ -151,7 +153,7 @@ class CookieRunKingdom:
             else:
                 appendCookie = beastCookiesList[random.randint(0, len(beastCookiesList) - 1)]
 
-                if appendCookie in self.userOwnCookies:
+                if appendCookie in self.userOwnCookieNameToLevel.keys():
                     print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                     print("쿠키 조각 100개\n")
                     self.cookiePiece += 100
@@ -162,7 +164,7 @@ class CookieRunKingdom:
                 print("-" * 50)
                 time.sleep(3)
 
-                self.userOwnCookies.append(appendCookie)
+                self.userOwnCookieNameToLevel[appendCookie] = 1
                 print("\n\n\n\n\n\n\n\n\n\n")
             
         else:
@@ -214,13 +216,13 @@ class CookieRunKingdom:
     # 다이아몬드 뽑기 최적화
     def diamondByLotInner(self):
         if self.userDiamond >= 300:
-            self.frame -= 300
+            self.userDiamond -= 300
             chosenResult = random.randint(1, 100)
 
             if chosenResult <= 50:
                 appendCookie = commonCookiesList[random.randint(0, len(commonCookiesList) - 1)]
 
-                if appendCookie in self.userOwnCookies:
+                if appendCookie in self.userOwnCookieNameToLevel.keys():
                     print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                     print("쿠키 조각 5개\n")
                     self.cookiePiece += 5
@@ -228,7 +230,7 @@ class CookieRunKingdom:
             elif chosenResult <= 75:
                 appendCookie = rareCookiesList[random.randint(0, len(rareCookiesList) - 1)]
 
-                if appendCookie in self.userOwnCookies:
+                if appendCookie in self.userOwnCookieNameToLevel.keys():
                     print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                     print("쿠키 조각 10개\n")
                     self.cookiePiece += 10
@@ -236,7 +238,7 @@ class CookieRunKingdom:
             elif chosenResult <= 85:
                 appendCookie = epicCookiesList[random.randint(0, len(epicCookiesList) - 1)]
 
-                if appendCookie in self.userOwnCookies:
+                if appendCookie in self.userOwnCookieNameToLevel.keys():
                     print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                     print("쿠키 조각 25개\n")
                     self.cookiePiece += 25
@@ -244,7 +246,7 @@ class CookieRunKingdom:
             elif chosenResult <= 91:
                 appendCookie = legendaryCookiesList[random.randint(0, len(legendaryCookiesList) - 1)]
 
-                if appendCookie in self.userOwnCookies:
+                if appendCookie in self.userOwnCookieNameToLevel.keys():
                     print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                     print("쿠키 조각 75개\n")
                     self.cookiePiece += 75
@@ -252,7 +254,7 @@ class CookieRunKingdom:
             elif chosenResult <= 99:
                 appendCookie = ancientCookiesList[random.randint(0, len(ancientCookiesList) - 1)]
 
-                if appendCookie in self.userOwnCookies:
+                if appendCookie in self.userOwnCookieNameToLevel.keys():
                     print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                     print("쿠키 조각 50개\n")
                     self.cookiePiece += 50
@@ -260,7 +262,7 @@ class CookieRunKingdom:
             else:
                 appendCookie = beastCookiesList[random.randint(0, len(beastCookiesList) - 1)]
 
-                if appendCookie in self.userOwnCookies:
+                if appendCookie in self.userOwnCookieNameToLevel.keys():
                     print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                     print("쿠키 조각 100개\n")
                     self.cookiePiece += 100
@@ -271,7 +273,7 @@ class CookieRunKingdom:
                 print("-" * 50)
                 time.sleep(3)
 
-                self.userOwnCookies.append(appendCookie)
+                self.userOwnCookieNameToLevel[appendCookie] = 1
                 print("\n\n\n\n\n\n\n\n\n\n")
         else:
             print("재화가 부족해서 뽑기가 중단되었습니다.")
@@ -318,6 +320,10 @@ class CookieRunKingdom:
                         for _ in range(3):
                             self.diamondByLotInner()
                         return
+    
+    # 쿠키 강화
+    def cookieStrengthen(self):
+        raise KeyboardInterrupt
 
     # 유저 재화 출력
     def getUserGoods(self):
@@ -527,7 +533,7 @@ class CookieRunKingdom:
                 return
 
             print()
-            if interactCookie in self.userOwnCookies:
+            if interactCookie in self.userOwnCookieNameToLevel.keys():
                 break
             else:
                 print("\n\n\n\n")
@@ -562,7 +568,7 @@ class CookieRunKingdom:
                 # 해당 쿠키 삭제
                 if userInput == 2:
                     print("\n\n\n\n\n\n\n\n\n\n")
-                    self.userOwnCookies.remove(interactCookie)
+                    del self.userOwnCookieNameToLevel[interactCookie]
                     print(f"{interactCookie} 삭제 완료")
                     time.sleep(1)
                     print("\n\n\n")
