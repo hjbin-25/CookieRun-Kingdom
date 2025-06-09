@@ -321,9 +321,84 @@ class CookieRunKingdom:
                             self.diamondByLotInner()
                         return
     
+    # 강화 조건 최적화
+    def cookieStrengthenInner(self, usingCookie, currentLevel):
+        requiredCookiePiece = 0
+        
+        if currentLevel <= 10:
+            requiredCookiePiece = 1
+        elif currentLevel <= 20:
+            requiredCookiePiece = 3
+        elif currentLevel <= 30:
+            requiredCookiePiece = 5
+        elif currentLevel <= 40:
+            requiredCookiePiece = 10
+        elif currentLevel <= 50:
+            requiredCookiePiece = 15
+        elif currentLevel <= 60:
+            requiredCookiePiece = 20
+        elif currentLevel <= 70:
+            requiredCookiePiece = 45
+        elif currentLevel <= 80:
+            requiredCookiePiece = 65
+        elif currentLevel < 90:
+            requiredCookiePiece = 85
+        else:
+            print("이미 최대 레벨입니다.")
+            time.sleep(2)
+
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+            return
+
+        if self.cookiePiece >= requiredCookiePiece:
+            self.userOwnCookieNameToLevel[usingCookie] += 1
+            self.cookiePiece -= requiredCookiePiece
+
+            print("강화완료")
+            print(f"{usingCookie}의 레벨: {self.userOwnCookieNameToLevel[usingCookie]}")
+            time.sleep(2)
+
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+            return
+        else:
+            print("쿠키조각이 부족합니다.")
+            time.sleep(2)
+
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+            return
+    
     # 쿠키 강화
-    def cookieStrengthen(self):
-        raise KeyboardInterrupt
+    def cookieStrengthen(self, usingCookie):
+        print("-" * 50)
+        print(f"{usingCookie}의 레벨: {self.userOwnCookieNameToLevel[usingCookie]}lv")
+        print("-" * 50)
+
+        print()
+
+        print("-" * 50)
+        print("2-10lv: 1개, 11-20lv: 3개, 21-30lv: 5개")
+        print("31-40lv: 10개, 41-50lv: 15개, 51-60lv: 20개")
+        print("61-70lv: 40개, 71-80lv: 65개, 81-90lv: 85개")
+        print("-" * 50)
+
+        print("\n\n")
+
+        while True:
+            print(" [ 쿠키 강화 ] ")
+            userInput = input(f"{usingCookie}를 강화하시겠습니까? (y/n): ")
+            
+            if userInput == 'y':
+                self.cookieStrengthenInner(usingCookie, self.userOwnCookieNameToLevel[usingCookie])
+                return
+            if userInput == 'n':
+                print("\n\n\n\n\n\n\n\n\n")
+                return
+            else:
+                print("올바른 값을 입력하세요")
+                time.sleep(2)
+
+                print("\n\n\n\n\n\n\n")
+                continue
 
     # 유저 재화 출력
     def getUserGoods(self):
@@ -341,6 +416,7 @@ class CookieRunKingdom:
     # 개발자 지원하기
     def supportDeveloper(self):
         print("\n\n\n\n\n\n\n\n\n")
+        print(" [ 개발자 지원하기 ]")
         print("-" * 50)
         print("대구은행 281-13-082351")
         print("-" * 50)
@@ -576,7 +652,7 @@ class CookieRunKingdom:
                 # 해당 쿠키 강화
                 if userInput == 3:
                     print("\n\n\n\n\n\n\n\n\n\n")
-                    raise KeyboardInterrupt
+                    self.cookieStrengthen(interactCookie)
                     return
                 else:
                     print("올바른 번호를 입력해주세요.")
