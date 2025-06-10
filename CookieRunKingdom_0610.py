@@ -125,9 +125,9 @@ class CookieRunKingdom:
         self.userOwnCookieNameToCombatPower = {"용감한 쿠키": 1000, "딸기맛 쿠키": 1000, "마법사맛 쿠키": 1000, "닌자맛 쿠키": 1000, "근육맛 쿠키": 1000}
         self.userCookiesCounter = 1                      # 보유 쿠키 수 저장
         self.userGold = 0                                # 골드
-        self.userDiamond = 90000                          # 다이아몬드
+        self.userDiamond = 9000                          # 다이아몬드
         self.currentStage = 1                            # 현재 스테이지 저장
-        self.frame = 1000                                  # 현재 남아있는 뽑기 틀의 개수 저장
+        self.frame = 1                                   # 현재 남아있는 뽑기 틀의 개수 저장
         self.cookiePiece = 0                             # 강화에 쓸 쿠키 조각 개수 저장
         # 유저의 현제 덱 저장
         self.userCurrentDeck = ["용감한 쿠키", "딸기맛 쿠키", "마법사맛 쿠키", "닌자맛 쿠키", "근육맛 쿠키"]
@@ -320,22 +320,13 @@ class CookieRunKingdom:
                     # 1회 뽑기
                     if userInput == 1:
                         self.cookieFrameByLotInner()
-                        continue
+                        return
                     
                     # 3회 연속 뽑기
                     if userInput == 2:
                         for _ in range(3):
                             self.cookieFrameByLotInner()
-                        continue
-
-                    else:
-                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
-                        print("올바른 숫자를 입력해주세요.")
-                        time.sleep(3)
-
-                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-
-                        continue
+                        return
 
     # 다이아몬드 뽑기 최적화
     def diamondByLotInner(self):
@@ -386,13 +377,10 @@ class CookieRunKingdom:
                     elif userInput == 2:
                         for _ in range(3):
                             self.diamondByLotInner()
-                        continue
                     else:
                         print("올바른 숫자를 입력해주세요.")
                         time.sleep(3)
                         print("\n\n\n\n\n\n\n\n\n\n\n")
-
-                        continue
     
     # 강화 조건 최적화
     def cookieStrengthenInner(self, usingCookie, currentLevel):
@@ -484,7 +472,6 @@ class CookieRunKingdom:
 
             if userInput == 'y':
                 self.cookieStrengthenInner(usingCookie, self.userOwnCookieNameToLevel[usingCookie])
-                continue
             elif userInput == 'n':
                 print("\n\n\n\n\n\n\n\n\n")
                 return
@@ -604,11 +591,11 @@ class CookieRunKingdom:
                     if userInput == 1:
                         self.setUserNickName()
                         print("\n\n\n\n")
-                        continue
+                        return
                     # 닉네임 확인
                     if userInput == 2:
                         self.getUserNickName()
-                        continue
+                        return
                     # 계정 삭제
                     if userInput == 3:
                         print("계정 삭제 완료")
@@ -618,11 +605,11 @@ class CookieRunKingdom:
                         while True:
                             userInputCode = input("쿠폰 코드 입력: ")
 
+                            if userInputCode == '0':
+                                return
                             if userInputCode == '-1':
                                 print("게임 종료")
                                 exit()
-                            if userInputCode == '0':
-                                return
                             
                             if userInputCode in self.couponCode.keys():
                                 print("입력 성공")
@@ -638,7 +625,7 @@ class CookieRunKingdom:
 
                                 print("\n\n\n")
 
-                                continue
+                                return
 
                     else:
                         print("올바른 번호를 입력해주세요.")
@@ -677,15 +664,15 @@ class CookieRunKingdom:
                     # 다이아몬드 뽑기
                     if userInput == 2:
                         self.diamondByLot()
-                        continue
+                        return
                     # 현재 재화 확인
                     if userInput == 3:
                         self.getUserGoods()
-                        continue
+                        return
                     # 개발자 지원하기
                     if userInput == 4:
                         self.supportDeveloper()
-                        continue
+                        return
                     else:
                         print("올바른 번호를 입력해주세요.")
                         continue
@@ -699,8 +686,6 @@ class CookieRunKingdom:
             self.getCurrentOwnCookies()
             interactCookie = input("접근할 쿠키의 이름을 입력해주세요: ")
 
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
-
             if interactCookie == '-1':
                 print("게임 종료")
                 exit()
@@ -711,7 +696,7 @@ class CookieRunKingdom:
             if interactCookie in self.userOwnCookieNameToLevel.keys():
                 break
             else:
-                print("\n\n\n\n\n\n\n\n\n\n\n")
+                print("\n\n\n\n")
                 print("보유하지 않거나 존재하지 않는 쿠키입니다.")
                 time.sleep(3)
 
@@ -729,7 +714,7 @@ class CookieRunKingdom:
                 print("잘못된 입력입니다. 다시 입력해주세요.")
                 continue
             else:
-                print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                print("\n\n\n")
                 # 종료하기
                 if userInput == -1:
                     print("게임 종료")
@@ -746,7 +731,7 @@ class CookieRunKingdom:
                     time.sleep(5)
 
                     print("\n\n\n\n\n")
-                    continue
+                    return
                 # 해당 쿠키 삭제
                 if userInput == 2:
                     print("\n\n\n\n\n\n\n\n\n\n")
@@ -754,12 +739,12 @@ class CookieRunKingdom:
                     print(f"{interactCookie} 삭제 완료")
                     time.sleep(1)
                     print("\n\n\n")
-                    continue
+                    return
                 # 해당 쿠키 강화
                 if userInput == 3:
                     print("\n\n\n\n\n\n\n\n\n\n")
                     self.cookieStrengthen(interactCookie)
-                    continue
+                    return
                 else:
                     print("올바른 번호를 입력해주세요.")
                     continue
@@ -914,11 +899,11 @@ class CookieRunKingdom:
                 # 전투력 확인
                 if userInput == 1:
                     self.getUserDeckTotalCombatPower()
-                    continue
+                    return
                 # 덱 교체
                 if userInput == 2:
                     self.changeUserDeck()
-                    continue
+                    return
                 else:
                     print("올바른 번호를 입력해주세요.")
                     continue
@@ -930,24 +915,19 @@ class CookieRunKingdom:
             # 입력값 저장
             userInput = None
 
-            while True:
-                # 명령어 보여줌
-                self.getKingdomGuideBook()
+            # 명령어 보여줌
+            self.getKingdomGuideBook()
 
+            while True:
                 print("[ 왕국 ]")
                 try:
                     userInput = int(input("단축키를 입력하세요(숫자만 가능): "))
                 # 이상값 확인
                 except ValueError:
-                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-
                     print("잘못된 입력입니다. 다시 입력해주세요.")
-
-                    time.sleep(3)
-                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
                     continue
                 else:
-                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                    print()
                     # 개임 종료
                     if userInput == -1:
                         print("게임 종료")
@@ -958,23 +938,18 @@ class CookieRunKingdom:
                     # 내 쿠키
                     if userInput == 1:
                         self.currentCookies()
-                        continue
+                        return
                     # 내 덱
                     if userInput == 2:
                         self.userDeck()
-                        continue
+                        return
                     # 왕국 꾸미기
                     if userInput == 3:
                         print("미완성")
                         raise RuntimeError
-                        continue
+                        return
                     else:
                         print("올바른 번호를 입력해주세요.")
-
-                        time.sleep(3)
-
-                        print("\n\n\n\n\n\n\n\n\n\n\n")
-
                         continue
 
     # 메인 플레이를 진행할 플레이 함수
