@@ -51,8 +51,8 @@ class CookieRunKingdom:
         self.frame = 1                                   # 현재 남아있는 뽑기 틀의 개수 저장
         self.cookiePiece = 0                             # 강화에 쓸 쿠키 조각 개수 저장
 
-        # 쿠폰 코드 저장 (리스트 형태로 보상이 저장 [골드, 다이아몬드, 쿠키틀])
-        self.couponCode = {"암소의 과학 공부": [10000, 3000, 100], "암소의 포트폴리오": [3000, 4500, 125]}
+        # 쿠폰 코드 저장 (리스트 형태로 보상이 저장 [골드, 다이아몬드, 쿠키틀, 쿠키 조각])
+        self.couponCode = {"암소의 과학 공부": [10000, 3000, 100, 100], "암소의 포트폴리오": [3000, 4500, 125, 200]}
 
         print("-" * 50)
         print("[ 종료버튼: -1 ]")
@@ -355,7 +355,7 @@ class CookieRunKingdom:
             self.cookiePiece -= requiredCookiePiece
 
             print("강화완료")
-            print(f"{usingCookie}의 레벨: {self.userOwnCookieNameToLevel[usingCookie]}")
+            print(f"{usingCookie}의 레벨: {self.userOwnCookieNameToLevel[usingCookie]} lv")
             time.sleep(2)
 
             print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
@@ -370,15 +370,15 @@ class CookieRunKingdom:
     # 쿠키 강화
     def cookieStrengthen(self, usingCookie):
         print("-" * 50)
-        print(f"{usingCookie}의 레벨: {self.userOwnCookieNameToLevel[usingCookie]}lv")
+        print(f"{usingCookie}의 레벨: {self.userOwnCookieNameToLevel[usingCookie]} lv")
         print("-" * 50)
 
         print()
 
         print("-" * 50)
-        print("2-10lv: 1개, 11-20lv: 3개, 21-30lv: 5개")
-        print("31-40lv: 10개, 41-50lv: 15개, 51-60lv: 20개")
-        print("61-70lv: 40개, 71-80lv: 65개, 81-90lv: 85개")
+        print("2-10 lv: 1개, 11-20 lv: 3개, 21-30 lv: 5개")
+        print("31-40 lv: 10개, 41-50 lv: 15개, 51-60 lv: 20개")
+        print("61-70 lv: 40개, 71-80 lv: 65개, 81-90 lv: 85개")
         print("-" * 50)
 
         print("\n\n")
@@ -534,6 +534,7 @@ class CookieRunKingdom:
                                 self.userGold += self.couponCode[userInputCode][0]
                                 self.userDiamond += self.couponCode[userInputCode][1]
                                 self.frame += self.couponCode[userInputCode][2]
+                                self.cookiePiece += self.couponCode[userInputCode][3]
 
                                 del self.couponCode[userInputCode]
                                 
