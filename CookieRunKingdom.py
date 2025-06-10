@@ -527,9 +527,10 @@ class CookieRunKingdom:
         print("2. 닉네임 확인")
         print("3. 회원 탈퇴")
         print("4. 쿠폰 입력")
+        print("5. 프로그램 정보")
         print("-" * 50)
 
-        print("\n\n")
+        print("\n")
 
     # 상점 부분 가이드북
     def getStoreGuideBook(self):
@@ -639,7 +640,18 @@ class CookieRunKingdom:
                                 print("\n\n\n")
 
                                 continue
+                    # 프로그램 정보
+                    if userInput == 5:
+                        print("-" * 50)
+                        print("게임명: Cookie Run: Kingdom")
+                        print("개발일자: 2025-06-04")
+                        print("제작자: 황정빈")
+                        print("-" * 50)
 
+                        time.sleep(3)
+
+                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                        continue
                     else:
                         print("올바른 번호를 입력해주세요.")
                         continue
