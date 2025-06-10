@@ -103,69 +103,74 @@ class CookieRunKingdom:
         print("상호작용 할려면 이름으로 접근하세요.")
         
         print("-" * 50)
+    
+    # 뽑기 최적화
+    def cookieByLot(self):
+        chosenResult = random.randint(1, 100)
 
+        if chosenResult <= 50:
+            appendCookie = commonCookiesList[random.randint(0, len(commonCookiesList) - 1)]
+
+            if appendCookie in self.userOwnCookieNameToLevel.keys():
+                print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
+                print("쿠키 조각 5개\n")
+                self.cookiePiece += 5
+
+        elif chosenResult <= 75:
+            appendCookie = rareCookiesList[random.randint(0, len(rareCookiesList) - 1)]
+
+            if appendCookie in self.userOwnCookieNameToLevel.keys():
+                print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
+                print("쿠키 조각 10개\n")
+                self.cookiePiece += 10
+
+        elif chosenResult <= 85:
+            appendCookie = epicCookiesList[random.randint(0, len(epicCookiesList) - 1)]
+
+            if appendCookie in self.userOwnCookieNameToLevel.keys():
+                print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
+                print("쿠키 조각 25개\n")
+                self.cookiePiece += 25
+        
+        elif chosenResult <= 91:
+            appendCookie = legendaryCookiesList[random.randint(0, len(legendaryCookiesList) - 1)]
+
+            if appendCookie in self.userOwnCookieNameToLevel.keys():
+                print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
+                print("쿠키 조각 75개\n")
+                self.cookiePiece += 75
+        
+        elif chosenResult <= 99:
+            appendCookie = ancientCookiesList[random.randint(0, len(ancientCookiesList) - 1)]
+
+            if appendCookie in self.userOwnCookieNameToLevel.keys():
+                print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
+                print("쿠키 조각 50개\n")
+                self.cookiePiece += 50
+        
+        else:
+            appendCookie = beastCookiesList[random.randint(0, len(beastCookiesList) - 1)]
+
+            if appendCookie in self.userOwnCookieNameToLevel.keys():
+                print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
+                print("쿠키 조각 100개\n")
+                self.cookiePiece += 100
+        
+        if appendCookie not in allCookiesInfo.keys():
+            print("-" * 50)
+            print(f"얻은 쿠키: {appendCookie}")
+            print("-" * 50)
+            time.sleep(3)
+
+            self.userOwnCookieNameToLevel[appendCookie] = 1
+            print("\n\n\n\n\n\n\n\n\n\n")
+    
     # 쿠키틀 뽑기 최적화
     def cookieFrameByLotInner(self):
         if self.frame >= 1:
             self.frame -= 1
-            chosenResult = random.randint(1, 100)
-
-            if chosenResult <= 50:
-                appendCookie = commonCookiesList[random.randint(0, len(commonCookiesList) - 1)]
-
-                if appendCookie in self.userOwnCookieNameToLevel.keys():
-                    print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
-                    print("쿠키 조각 5개\n")
-                    self.cookiePiece += 5
-
-            elif chosenResult <= 75:
-                appendCookie = rareCookiesList[random.randint(0, len(rareCookiesList) - 1)]
-
-                if appendCookie in self.userOwnCookieNameToLevel.keys():
-                    print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
-                    print("쿠키 조각 10개\n")
-                    self.cookiePiece += 10
-
-            elif chosenResult <= 85:
-                appendCookie = epicCookiesList[random.randint(0, len(epicCookiesList) - 1)]
-
-                if appendCookie in self.userOwnCookieNameToLevel.keys():
-                    print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
-                    print("쿠키 조각 25개\n")
-                    self.cookiePiece += 25
-            
-            elif chosenResult <= 91:
-                appendCookie = legendaryCookiesList[random.randint(0, len(legendaryCookiesList) - 1)]
-
-                if appendCookie in self.userOwnCookieNameToLevel.keys():
-                    print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
-                    print("쿠키 조각 75개\n")
-                    self.cookiePiece += 75
-            
-            elif chosenResult <= 99:
-                appendCookie = ancientCookiesList[random.randint(0, len(ancientCookiesList) - 1)]
-
-                if appendCookie in self.userOwnCookieNameToLevel.keys():
-                    print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
-                    print("쿠키 조각 50개\n")
-                    self.cookiePiece += 50
-            
-            else:
-                appendCookie = beastCookiesList[random.randint(0, len(beastCookiesList) - 1)]
-
-                if appendCookie in self.userOwnCookieNameToLevel.keys():
-                    print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
-                    print("쿠키 조각 100개\n")
-                    self.cookiePiece += 100
-            
-            if appendCookie not in allCookiesInfo.keys():
-                print("-" * 50)
-                print(f"얻은 쿠키: {appendCookie}")
-                print("-" * 50)
-                time.sleep(3)
-
-                self.userOwnCookieNameToLevel[appendCookie] = 1
-                print("\n\n\n\n\n\n\n\n\n\n")
+            self.cookieByLot()
+            return
             
         else:
             print("재화가 부족해서 뽑기가 중단되었습니다.")
@@ -217,64 +222,9 @@ class CookieRunKingdom:
     def diamondByLotInner(self):
         if self.userDiamond >= 300:
             self.userDiamond -= 300
-            chosenResult = random.randint(1, 100)
+            self.cookieByLot()
+            return
 
-            if chosenResult <= 50:
-                appendCookie = commonCookiesList[random.randint(0, len(commonCookiesList) - 1)]
-
-                if appendCookie in self.userOwnCookieNameToLevel.keys():
-                    print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
-                    print("쿠키 조각 5개\n")
-                    self.cookiePiece += 5
-
-            elif chosenResult <= 75:
-                appendCookie = rareCookiesList[random.randint(0, len(rareCookiesList) - 1)]
-
-                if appendCookie in self.userOwnCookieNameToLevel.keys():
-                    print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
-                    print("쿠키 조각 10개\n")
-                    self.cookiePiece += 10
-
-            elif chosenResult <= 85:
-                appendCookie = epicCookiesList[random.randint(0, len(epicCookiesList) - 1)]
-
-                if appendCookie in self.userOwnCookieNameToLevel.keys():
-                    print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
-                    print("쿠키 조각 25개\n")
-                    self.cookiePiece += 25
-            
-            elif chosenResult <= 91:
-                appendCookie = legendaryCookiesList[random.randint(0, len(legendaryCookiesList) - 1)]
-
-                if appendCookie in self.userOwnCookieNameToLevel.keys():
-                    print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
-                    print("쿠키 조각 75개\n")
-                    self.cookiePiece += 75
-            
-            elif chosenResult <= 99:
-                appendCookie = ancientCookiesList[random.randint(0, len(ancientCookiesList) - 1)]
-
-                if appendCookie in self.userOwnCookieNameToLevel.keys():
-                    print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
-                    print("쿠키 조각 50개\n")
-                    self.cookiePiece += 50
-            
-            else:
-                appendCookie = beastCookiesList[random.randint(0, len(beastCookiesList) - 1)]
-
-                if appendCookie in self.userOwnCookieNameToLevel.keys():
-                    print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
-                    print("쿠키 조각 100개\n")
-                    self.cookiePiece += 100
-            
-            if appendCookie not in allCookiesInfo.keys():
-                print("-" * 50)
-                print(f"얻은 쿠키: {appendCookie}")
-                print("-" * 50)
-                time.sleep(3)
-
-                self.userOwnCookieNameToLevel[appendCookie] = 1
-                print("\n\n\n\n\n\n\n\n\n\n")
         else:
             print("재화가 부족해서 뽑기가 중단되었습니다.")
             time.sleep(3)
@@ -369,28 +319,37 @@ class CookieRunKingdom:
     
     # 쿠키 강화
     def cookieStrengthen(self, usingCookie):
-        print("-" * 50)
-        print(f"{usingCookie}의 레벨: {self.userOwnCookieNameToLevel[usingCookie]} lv")
-        print("-" * 50)
-
-        print()
-
-        print("-" * 50)
-        print("2-10 lv: 1개, 11-20 lv: 3개, 21-30 lv: 5개")
-        print("31-40 lv: 10개, 41-50 lv: 15개, 51-60 lv: 20개")
-        print("61-70 lv: 40개, 71-80 lv: 65개, 81-90 lv: 85개")
-        print("-" * 50)
-
-        print("\n\n")
-
         while True:
+
+            print("-" * 50)
+            print(f"{usingCookie}의 레벨: {self.userOwnCookieNameToLevel[usingCookie]} lv")
+            print("-" * 50)
+
+            print()
+
+            print("-" * 50)
+            print("2-10 lv: 1개, 11-20 lv: 3개, 21-30 lv: 5개")
+            print("31-40 lv: 10개, 41-50 lv: 15개, 51-60 lv: 20개")
+            print("61-70 lv: 40개, 71-80 lv: 65개, 81-90 lv: 85개")
+            print("-" * 50)
+
+            print("\n\n")
+
             print(" [ 쿠키 강화 ] ")
             userInput = input(f"{usingCookie}를 강화하시겠습니까? (y/n): ")
             
+            # 게임 종료
+            if userInput == '-1':
+                print("게임 종료")
+                exit()
+            # 돌아가기
+            if userInput == '0':
+                print("\n\n\n\n\n\n\n\n\n\n\n")
+                return
+
             if userInput == 'y':
                 self.cookieStrengthenInner(usingCookie, self.userOwnCookieNameToLevel[usingCookie])
-                return
-            if userInput == 'n':
+            elif userInput == 'n':
                 print("\n\n\n\n\n\n\n\n\n")
                 return
             else:
