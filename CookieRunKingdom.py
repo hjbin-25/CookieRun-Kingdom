@@ -373,13 +373,14 @@ class CookieRunKingdom:
                     # 1회 뽑기
                     if userInput == 1:
                         self.diamondByLotInner()
-                        return
-                    
                     # 3회 연속 뽑기
-                    if userInput == 2:
+                    elif userInput == 2:
                         for _ in range(3):
                             self.diamondByLotInner()
-                        return
+                    else:
+                        print("올바른 숫자를 입력해주세요.")
+                        time.sleep(3)
+                        print("\n\n\n\n\n\n\n\n\n\n\n")
     
     # 강화 조건 최적화
     def cookieStrengthenInner(self, usingCookie, currentLevel):
@@ -697,6 +698,9 @@ class CookieRunKingdom:
             else:
                 print("\n\n\n\n")
                 print("보유하지 않거나 존재하지 않는 쿠키입니다.")
+                time.sleep(3)
+
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
         
         print("\n\n\n\n\n")
 
@@ -757,56 +761,117 @@ class CookieRunKingdom:
         print("\n\n\n\n\n\n\n\n\n")
         return
     
+    # 내 덱 출력
+    def getUserCurrentDeck(self):
+        print("-" * 50)
+        for cookieIndex in range(5):
+            print(f"[ {self.userCurrentDeck[cookieIndex]} ]", end='')
+
+            if cookieIndex + 1 < 5:
+                print(", ", end='')
+            else:
+                print()
+        print("-" * 50)
+    
     # 내 덱 변경
     def changeUserDeck(self):
-        print("[ 내 덱 ]")
-        print("-" * 50)
-        
-        isPrinted = False
-        printedCounter = 0
-        
-        for cookie in self.userOwnCookieNameToLevel:
-            if cookie not in self.userCurrentDeck:
-                printedCounter += 1
-                
-                if isPrinted:
-                    print(", ", end='')
-                
-                if printedCounter % 5 == 0:
+        while True:
+            print("[ 내 덱 ]")
+            print("-" * 50)
+            
+            isPrinted = False
+            printedCounter = 0
+            
+            for cookie in self.userOwnCookieNameToLevel:
+                if cookie not in self.userCurrentDeck:
+                    printedCounter += 1
+                    
+                    if isPrinted:
+                        print(", ", end='')
+                    
+                    if printedCounter % 5 == 0:
+                        print()
+
+                    print(f"[ {cookie} ]", end='')
+                    isPrinted = True
+
+            print()
+
+            print("-" * 50)
+
+            print()
+
+            print("-" * 50)
+            print("상호작용 할려면 이름으로 접근하세요.")
+            print("-" * 50)
+
+            print()
+
+            interactCookie = input("접근할 쿠키의 이름을 입력해주세요: ")
+            
+            print("\n\n\n\n\n\n\n\n\n\n\n\n")
+            # 게임 종료
+            if interactCookie == '-1':
+                print("게임 종료")
+                exit()
+            # 돌아가기
+            if interactCookie == '0':
+                return
+            if (interactCookie in self.userOwnCookieNameToLevel.keys()) and (interactCookie not in self.userCurrentDeck):
+                while True:
+                    print("[ 내 덱 ]")
+                    self.getUserCurrentDeck()
+
                     print()
 
-                print(f"[ {cookie} ]", end='')
-                isPrinted = True
+                    changeCookie = input("교체할 쿠키를 고르세요: ")
 
-        print()
+                    print("\n\n\n\n\n\n\n\n\n\n\n\n")
+                    # 게임 종료
+                    if changeCookie == '-1':
+                        print("게임 종료")
+                        exit()
+                    # 돌아가기
+                    if changeCookie == '0':
+                        return
+                    if changeCookie in self.userCurrentDeck:
+                        self.userCombatPower -= self.userOwnCookieNameToCombatPower[changeCookie]
+                        self.userCombatPower += self.userOwnCookieNameToCombatPower[interactCookie]
 
-        print("-" * 50)
+                        self.userCurrentDeck.remove(changeCookie)
+                        self.userCurrentDeck.append(interactCookie)
 
-        print()
+                        print()
 
-        print("-" * 50)
-        print("상호작용 할려면 이름으로 접근하세요.")
-        print("-" * 50)
+                        print("[ 내 덱 ]")
+                        self.getUserCurrentDeck()
 
-        time.sleep(3)
+                        time.sleep(3)
 
-        print("\n\n\n\n\n\n\n\n\n")
-        return
+                        print("\n\n\n\n\n\n\n\n\n\n\n\n")
+                    else:
+                        print("\n\n\n\n\n\n\n\n")
+                        print("보유하지 않거나 존재하지 않는 쿠키입니다.")
+
+                        time.sleep(3)
+                        
+                        print("\n\n\n\n\n\n\n\n\n")
+                        continue
+                    
+            else:
+                print("\n\n\n\n\n\n\n\n")
+                print("보유하지 않거나 존재하지 않는 쿠키입니다.")
+
+                time.sleep(3)
+                
+                print("\n\n\n\n\n\n\n\n\n")
 
     # 내 덱
     def userDeck(self):
         while True:
             print("[ 내 덱 ]")
             
-            print("-" * 50)
-            for cookieIndex in range(5):
-                print(f"{self.userCurrentDeck[cookieIndex]}", end='')
-
-                if cookieIndex + 1 < 5:
-                    print(", ", end='')
-                else:
-                    print()
-            print("-" * 50)
+            self.getUserCurrentDeck()
 
             print()
 
