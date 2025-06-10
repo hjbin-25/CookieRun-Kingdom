@@ -125,7 +125,7 @@ class CookieRunKingdom:
         self.userOwnCookieNameToCombatPower = {"용감한 쿠키": 1000, "딸기맛 쿠키": 1000, "마법사맛 쿠키": 1000, "닌자맛 쿠키": 1000, "근육맛 쿠키": 1000}
         self.userCookiesCounter = 1                      # 보유 쿠키 수 저장
         self.userGold = 0                                # 골드
-        self.userDiamond = 1000                          # 다이아몬드
+        self.userDiamond = 9000                          # 다이아몬드
         self.currentStage = 1                            # 현재 스테이지 저장
         self.frame = 1                                   # 현재 남아있는 뽑기 틀의 개수 저장
         self.cookiePiece = 0                             # 강화에 쓸 쿠키 조각 개수 저장
@@ -171,16 +171,20 @@ class CookieRunKingdom:
     def getCurrentOwnCookies(self):
         print("-" * 50)
 
-        cnt = 1
-        for key in self.userOwnCookieNameToLevel.keys():
-            if cnt % 5 == 0:
+        isPrinted = False
+        printedCounter = 0
+        
+        for cookie in self.userOwnCookieNameToLevel:
+            printedCounter += 1
+            
+            if isPrinted:
+                print(", ", end='')
+            
+            if printedCounter % 5 == 0:
                 print()
 
-            cnt += 1
-
-            print(f"[ {key} ]", end='')
-            if cnt < len(self.userOwnCookieNameToLevel):
-                print(", ", end='')
+            print(f"[ {cookie} ]", end='')
+            isPrinted = True
         
         print()
 
@@ -194,7 +198,7 @@ class CookieRunKingdom:
 
         additionalCombatPower = 0
 
-        if chosenResult <= 30:
+        if chosenResult <= 50:
             appendCookie = commonCookiesList[random.randint(0, len(commonCookiesList) - 1)]
 
             additionalCombatPower = 1000
@@ -260,7 +264,7 @@ class CookieRunKingdom:
                 self.cookiePiece += 100
                 time.sleep(3)
         
-        if appendCookie not in allCookiesInfo.keys():
+        if appendCookie not in self.userOwnCookieNameToLevel.keys():
             print("-" * 50)
             print(f"얻은 쿠키: {appendCookie}")
             print("-" * 50)
@@ -771,7 +775,8 @@ class CookieRunKingdom:
                 if printedCounter % 5 == 0:
                     print()
 
-                print(cookie, end='')
+                print(f"[ {cookie} ]", end='')
+                isPrinted = True
 
         print()
 
