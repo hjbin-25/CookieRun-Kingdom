@@ -89,7 +89,7 @@ allCookiesInfo = {"용감한 쿠키": """당신은 자신감 폭발~ 나를 따�
 # 희귀도가 일반인 쿠키들
 commonCookiesList = ["용감한 쿠키", "딸기맛 쿠키", "마법사맛 쿠키", "닌자맛 쿠키", "근육맛 쿠키"]
 # 희귀도가 희귀인 쿠키들
-rareCookiesList = ["클로버맛 쿠키", "커스터드 3세맛 쿠카"]
+rareCookiesList = ["클로버맛 쿠키", "커스터드 3세맛 쿠키"]
 # 희귀도가 에픽인 쿠키들
 epicCookiesList = ["웨어울프맛 쿠키", "다크초코 쿠키", "자색고구마맛 쿠키", "구미호맛 쿠키", "벨벳케이크맛 쿠키", "라즈베리맛 쿠키"]
 # 희귀도가 전설인 쿠키들
@@ -194,7 +194,7 @@ class CookieRunKingdom:
 
         additionalCombatPower = 0
 
-        if chosenResult <= 50:
+        if chosenResult <= 30:
             appendCookie = commonCookiesList[random.randint(0, len(commonCookiesList) - 1)]
 
             additionalCombatPower = 1000
@@ -203,8 +203,9 @@ class CookieRunKingdom:
                 print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                 print("쿠키 조각 5개\n")
                 self.cookiePiece += 5
+                time.sleep(3)
 
-        elif chosenResult <= 75:
+        elif chosenResult <= 55:
             appendCookie = rareCookiesList[random.randint(0, len(rareCookiesList) - 1)]
 
             additionalCombatPower = 2000
@@ -213,8 +214,9 @@ class CookieRunKingdom:
                 print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                 print("쿠키 조각 10개\n")
                 self.cookiePiece += 10
+                time.sleep(3)
 
-        elif chosenResult <= 85:
+        elif chosenResult <= 80:
             appendCookie = epicCookiesList[random.randint(0, len(epicCookiesList) - 1)]
             
             additionalCombatPower = 2500
@@ -223,8 +225,9 @@ class CookieRunKingdom:
                 print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                 print("쿠키 조각 25개\n")
                 self.cookiePiece += 25
+                time.sleep(3)
         
-        elif chosenResult <= 91:
+        elif chosenResult <= 90:
             appendCookie = legendaryCookiesList[random.randint(0, len(legendaryCookiesList) - 1)]
 
             additionalCombatPower = 3000
@@ -233,6 +236,7 @@ class CookieRunKingdom:
                 print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                 print("쿠키 조각 75개\n")
                 self.cookiePiece += 75
+                time.sleep(3)
         
         elif chosenResult <= 99:
             appendCookie = ancientCookiesList[random.randint(0, len(ancientCookiesList) - 1)]
@@ -243,6 +247,7 @@ class CookieRunKingdom:
                 print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                 print("쿠키 조각 50개\n")
                 self.cookiePiece += 50
+                time.sleep(3)
         
         else:
             appendCookie = beastCookiesList[random.randint(0, len(beastCookiesList) - 1)]
@@ -253,6 +258,7 @@ class CookieRunKingdom:
                 print("이미 있는 쿠키가 나와서 아래 보상으로 대체됩니다.")
                 print("쿠키 조각 100개\n")
                 self.cookiePiece += 100
+                time.sleep(3)
         
         if appendCookie not in allCookiesInfo.keys():
             print("-" * 50)
@@ -263,6 +269,7 @@ class CookieRunKingdom:
             self.userOwnCookieNameToLevel[appendCookie] = 1
             self.userOwnCookieNameToCombatPower[appendCookie] = additionalCombatPower
             print("\n\n\n\n\n\n\n\n\n\n")
+            return
     
     # 쿠키틀 뽑기 최적화
     def cookieFrameByLotInner(self):
@@ -750,23 +757,30 @@ class CookieRunKingdom:
     def changeUserDeck(self):
         print("[ 내 덱 ]")
         print("-" * 50)
-        cnt = 1
-        for key in self.userOwnCookieNameToLevel.keys():
-            if key not in self.userDeck:
-                if cnt % 5 == 0:
+        
+        isPrinted = False
+        printedCounter = 0
+        
+        for cookie in self.userOwnCookieNameToLevel:
+            if cookie not in self.userCurrentDeck:
+                printedCounter += 1
+                
+                if isPrinted:
+                    print(", ", end='')
+                
+                if printedCounter % 5 == 0:
                     print()
 
-                cnt += 1
-                
-                print(f"[ {key} ]", end='')
-                if cnt < len(self.userOwnCookieNameToLevel):
-                    print(", ", end='')
-        
+                print(cookie, end='')
+
         print()
 
-        print("상호작용 할려면 이름으로 접근하세요.")
-        
         print("-" * 50)
+
+        print()
+
+        print("-" * 50)
+        print("상호작용 할려면 이름으로 접근하세요.")
         print("-" * 50)
 
         time.sleep(3)
@@ -804,7 +818,7 @@ class CookieRunKingdom:
                 print("잘못된 입력입니다. 다시 입력해주세요.")
                 continue
             else:
-                print("\n\n\n")
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
                 # 종료하기
                 if userInput == -1:
                     print("게임 종료")
