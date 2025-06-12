@@ -7,18 +7,7 @@ allCookiesInfo = {}
 # 시나리오 저장
 allScenario = {}
 
-# 희귀도가 일반인 쿠키들
-commonCookiesList = ["용감한 쿠키", "딸기맛 쿠키", "마법사맛 쿠키", "닌자맛 쿠키", "근육맛 쿠키"]
-# 희귀도가 희귀인 쿠키들
-rareCookiesList = ["클로버맛 쿠키", "커스터드 3세맛 쿠키"]
-# 희귀도가 에픽인 쿠키들
-epicCookiesList = ["웨어울프맛 쿠키", "다크초코 쿠키", "자색고구마맛 쿠키", "구미호맛 쿠키", "벨벳케이크맛 쿠키", "라즈베리맛 쿠키"]
-# 희귀도가 전설인 쿠키들
-legendaryCookiesList = ["바다요정 쿠키", "블랙펄 쿠키"]
-# 희귀도가 고대인 쿠키들
-ancientCookiesList = ["다크카카오 쿠키", "홀리베리 쿠키", "퓨어바닐라 쿠키"]
-# 희귀도가 비스트인 쿠키들
-beastCookiesList = ["이터널슈가 쿠키", "쉐도우밀크 쿠키"]
+# 쿠키 저장
 
 # 메인 플레이를 진행할 클래스, 모든 기능은 이 클래스에서 구현함
 class CookieRunKingdom:
@@ -186,14 +175,7 @@ class CookieRunKingdom:
 
 
 # 메인 함수 부분
-print("\n\n\n\n\n\n\n\n\n\n\n")
-print("쿠키런: 킹덤 (Cookie Run: Kingdom)\n\n\n")
-print("""다양한 쿠키를 수집하고 육성해 전투를 펼치며, 나만의 왕국을 건설하는 전략 RPG입니다.
-실시간 자동 전투와 PvP, 보스전 등 다채로운 전투 콘텐츠가 기다리고 있습니다.
-자원을 모아 왕국을 성장시키고, 개성 넘치는 꾸미기로 나만의 세상을 만들어보세요.
-매일 새로워지는 이벤트와 스토리로 끝없는 재미를 즐기실 수 있습니다.""")
-
-print("-" * 50 + '\n')
+# 설명
 
 callingVar = CookieRunKingdom()
 callingVar.playCookieRunKingdom()

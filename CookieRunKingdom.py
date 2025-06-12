@@ -87,7 +87,7 @@ allCookiesInfo = {"용감한 쿠키": """당신은 자신감 폭발~ 나를 따�
 달빛 아래서 본 모습은 순식간에 사라지며, 흔적조차 남기지 않는다."""}
 
 # 시나리오 저장
-allScenario = {"1": """### **1. 초원의 하루**
+allScenario = {1: """### **1. 초원의 하루**
 
 성이는 풀을 뜯으며 멍하니 하늘을 봤다.
 
@@ -95,7 +95,7 @@ allScenario = {"1": """### **1. 초원의 하루**
 
 “심심한 게 참 좋다~” 성이는 입속으로 중얼거렸다.""",
 
-"2": """### **2. 새로운 친구의 등장**
+2: """### **2. 새로운 친구의 등장**
 
 어느 날 도시 말 태풍이가 농장에 왔다.
 
@@ -103,7 +103,7 @@ allScenario = {"1": """### **1. 초원의 하루**
 
 “우와… 근데 왜 저렇게 잘난 척하지?” 꿀꿀이가 중얼거렸다.""",
 
-"3": """### **3. 작은 오해**
+3: """### **3. 작은 오해**
 
 태풍이는 그냥 친해지고 싶었던 거였다.
 
@@ -111,7 +111,7 @@ allScenario = {"1": """### **1. 초원의 하루**
 
 성이는 “우리끼리 말하지 말고 직접 얘기해보자~”라고 말했다.""",
 
-"4": """### **4. 비 오는 날의 위기**
+4: """### **4. 비 오는 날의 위기**
 
 밤새 비가 퍼부었고, 작은 개울이 범람했다.
 
@@ -119,7 +119,7 @@ allScenario = {"1": """### **1. 초원의 하루**
 
 성이가 가장 먼저 뛰어들어 꼬꼬를 끌어냈다.""",
 
-"5": """### **5. 서로를 이해하기**
+5: """### **5. 서로를 이해하기**
 
 “고마워… 나도 도움이 되고 싶었어.” 태풍이가 말했다.
 
@@ -127,7 +127,7 @@ allScenario = {"1": """### **1. 초원의 하루**
 
 다들 괜히 수줍게 웃었다.""",
 
-"6": """### **6. 농장의 수수께끼**
+6: """### **6. 농장의 수수께끼**
 
 밤마다 이상한 딸깍딸깍 소리가 났다.
 
@@ -135,7 +135,7 @@ allScenario = {"1": """### **1. 초원의 하루**
 
 “이거… 옛날 쥐 자전거였잖아?” 뭉실이가 외쳤다.""",
 
-"7": """### **7. 숨겨진 공간 발견**
+7: """### **7. 숨겨진 공간 발견**
 
 쥐가 다니던 길 따라가니 숨겨진 창고가 있었다.
 
@@ -143,7 +143,7 @@ allScenario = {"1": """### **1. 초원의 하루**
 
 “우와, 이 농장은 우리보다 오래된 전설이 있네~” 성이가 말했다.""",
 
-"8": """### **8. 큰 농장 대회**
+8: """### **8. 큰 농장 대회**
 
 마을에서 ‘동물 올림픽’이 열린다 했다.
 
@@ -151,7 +151,7 @@ allScenario = {"1": """### **1. 초원의 하루**
 
 그래도 서로 도와가며 완주하니 기분이 묘하게 좋았다.""",
 
-"9": """### **9. 진짜 중요한 것**
+9: """### **9. 진짜 중요한 것**
 
 1등은 못 했지만 누구도 신경 쓰지 않았다.
 
@@ -159,13 +159,16 @@ allScenario = {"1": """### **1. 초원의 하루**
 
 성이는 말없이 하늘을 보고 ‘우정도 땀이 나네’라고 생각했다.""",
 
-"10": """### **10. 다시 평화로운 하루**
+10: """### **10. 다시 평화로운 하루**
 
 그날 이후 태풍이는 진짜 친구가 됐다.
 
 성이와 친구들은 다시 평범하게 풀을 뜯으며 논다.
 
 “심심한 게 참 좋아. 친구랑 같이라면 더 좋아~” 성이는 웃었다."""}
+
+# 시나리오랑 요구되는 전투력 딕셔너리
+scenarioToRequiredCombatPower = {1: 5000, 2: 7000, 3: 10000, 4: 12500, 5: 15000, 6: 17500, 7: 25000, 8: 50000, 9: 65000, 10: 70000}
 
 # 희귀도가 일반인 쿠키들
 commonCookiesList = ["용감한 쿠키", "딸기맛 쿠키", "마법사맛 쿠키", "닌자맛 쿠키", "근육맛 쿠키"]
@@ -752,6 +755,7 @@ class CookieRunKingdom:
     # 시나리오 부분 담당
     def scenario(self):
         while True:
+            print("[ 시나리오 ]")
             print("-" * 50)
             if (self.userCurrentScenarioStage <= 10):
                 print(f"현재 스테이지: {self.userCurrentScenarioStage}")
@@ -767,7 +771,41 @@ class CookieRunKingdom:
 
             userInput = input("스테이지를 진행하시겠습니까? (y/n): ")
 
-            
+            if userInput == '-1':
+                print("게임 종료")
+                exit()
+            if userInput == '0':
+                return
+            if userInput == 'y':
+                print("\n\n\n\n\n\n\n\n")
+                if self.userCombatPower >= scenarioToRequiredCombatPower[self.userCurrentScenarioStage]:
+                    print("전투중...")
+                    time.sleep(random.randint(3, 10))
+                    print("-" * 50)
+                    print("스테이지 클리어")
+                    print(f"보상: 쿠키조각({self.userCurrentScenarioStage * 25})")
+                    time.sleep(3)
+
+                    self.userCurrentScenarioStage += 1
+                    self.cookiePiece += self.userCurrentScenarioStage * 25
+
+                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                    continue
+                else:
+                    print("전투중...")
+                    time.sleep(random.randint(3, 10))
+                    print("-" * 50)
+                    print("스테이지 실패")
+                    time.sleep(3)
+
+                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                    continue
+            if userInput == 'n':
+                print("\n\n\n\n\n\n\n\n\n\n\n\n")
+                return
+            else:
+                print("올바르지 않은 값입니다. 다시 입력해주세요.")
+                continue
     
     # 플레이 부분 담당
     def play(self):
@@ -1286,8 +1324,7 @@ class CookieRunKingdom:
                         self.store()
                         continue
                     if userInput == 3:
-                        print("미완성")
-                        raise RuntimeError
+                        self.play()
                         continue
                     if userInput == 4:
                         self.kingdom()
