@@ -751,7 +751,23 @@ class CookieRunKingdom:
     
     # 시나리오 부분 담당
     def scenario(self):
-        pass
+        while True:
+            print("-" * 50)
+            if (self.userCurrentScenarioStage <= 10):
+                print(f"현재 스테이지: {self.userCurrentScenarioStage}")
+            else:
+                print("스테이지가 더 없습니다")
+                time.sleep(3)
+                
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                return
+            print("-" * 50)
+            
+            print()
+
+            userInput = input("스테이지를 진행하시겠습니까? (y/n): ")
+
+            
     
     # 플레이 부분 담당
     def play(self):
@@ -786,7 +802,7 @@ class CookieRunKingdom:
                         return
                     # 시나리오
                     if userInput == 1:
-                        self.currentCookies()
+                        self.scenario()
                         continue
                     # 보스전
                     if userInput == 2:
