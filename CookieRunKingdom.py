@@ -86,6 +86,87 @@ allCookiesInfo = {"용감한 쿠키": """당신은 자신감 폭발~ 나를 따�
 새하얀 피부에 스며든 그림자들은 조용하지만 위협적인 존재감을 발산한다.
 달빛 아래서 본 모습은 순식간에 사라지며, 흔적조차 남기지 않는다."""}
 
+# 시나리오 저장
+allScenario = {"1": """### **1. 초원의 하루**
+
+성이는 풀을 뜯으며 멍하니 하늘을 봤다.
+
+뭉실이랑 꿀꿀이랑 멍이랑도 옆에서 한가하게 놀고 있었다.
+
+“심심한 게 참 좋다~” 성이는 입속으로 중얼거렸다.""",
+
+"2": """### **2. 새로운 친구의 등장**
+
+어느 날 도시 말 태풍이가 농장에 왔다.
+
+태풍이는 반짝이는 갈기와 빠른 말발굽 소리를 자랑했다.
+
+“우와… 근데 왜 저렇게 잘난 척하지?” 꿀꿀이가 중얼거렸다.""",
+
+"3": """### **3. 작은 오해**
+
+태풍이는 그냥 친해지고 싶었던 거였다.
+
+근데 말투가 좀 거만해서 다들 오해했다.
+
+성이는 “우리끼리 말하지 말고 직접 얘기해보자~”라고 말했다.""",
+
+"4": """### **4. 비 오는 날의 위기**
+
+밤새 비가 퍼부었고, 작은 개울이 범람했다.
+
+꼬꼬가 물에 빠지자 모두 우왕좌왕했다.
+
+성이가 가장 먼저 뛰어들어 꼬꼬를 끌어냈다.""",
+
+"5": """### **5. 서로를 이해하기**
+
+“고마워… 나도 도움이 되고 싶었어.” 태풍이가 말했다.
+
+성이는 씩 웃으며 “이제 진짜 우리 친구네~”라고 했다.
+
+다들 괜히 수줍게 웃었다.""",
+
+"6": """### **6. 농장의 수수께끼**
+
+밤마다 이상한 딸깍딸깍 소리가 났다.
+
+성이와 친구들은 손전등 없이 깜깜한 헛간으로 갔다.
+
+“이거… 옛날 쥐 자전거였잖아?” 뭉실이가 외쳤다.""",
+
+"7": """### **7. 숨겨진 공간 발견**
+
+쥐가 다니던 길 따라가니 숨겨진 창고가 있었다.
+
+안엔 오래된 낙엽, 낡은 일기장, 그리고 옛날 사진이 있었다.
+
+“우와, 이 농장은 우리보다 오래된 전설이 있네~” 성이가 말했다.""",
+
+"8": """### **8. 큰 농장 대회**
+
+마을에서 ‘동물 올림픽’이 열린다 했다.
+
+성이네 팀은 달리기, 줄넘기, 무게 들기 전부 망쳤다.
+
+그래도 서로 도와가며 완주하니 기분이 묘하게 좋았다.""",
+
+"9": """### **9. 진짜 중요한 것**
+
+1등은 못 했지만 누구도 신경 쓰지 않았다.
+
+“이렇게 재밌게 뛴 건 처음이야!” 꼬꼬가 말했다.
+
+성이는 말없이 하늘을 보고 ‘우정도 땀이 나네’라고 생각했다.""",
+
+"10": """### **10. 다시 평화로운 하루**
+
+그날 이후 태풍이는 진짜 친구가 됐다.
+
+성이와 친구들은 다시 평범하게 풀을 뜯으며 논다.
+
+“심심한 게 참 좋아. 친구랑 같이라면 더 좋아~” 성이는 웃었다."""}
+
 # 희귀도가 일반인 쿠키들
 commonCookiesList = ["용감한 쿠키", "딸기맛 쿠키", "마법사맛 쿠키", "닌자맛 쿠키", "근육맛 쿠키"]
 # 희귀도가 희귀인 쿠키들
@@ -132,6 +213,7 @@ class CookieRunKingdom:
         # 유저의 현제 덱 저장
         self.userCurrentDeck = ["용감한 쿠키", "딸기맛 쿠키", "마법사맛 쿠키", "닌자맛 쿠키", "근육맛 쿠키"]
         self.userCombatPower = 5000                      # 유저의 전투력 저장
+        self.userCurrentScenarioStage = 1                # 유저의 현재 시나리오 스테이지 저장
 
         # 쿠폰 코드 저장 (리스트 형태로 보상이 저장 [골드, 다이아몬드, 쿠키틀, 쿠키 조각])
         self.couponCode = {"암소의 과학 공부": [10000, 3000, 100, 100], "암소의 포트폴리오": [3000, 4500, 125, 200]}
@@ -139,6 +221,112 @@ class CookieRunKingdom:
         print("-" * 50)
         print("[ 종료버튼: -1 ]")
         print("-" * 50)
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # 가이드북 부분
+
+    # 설정 부분 가이드북
+    def getSettingGuideBook(self):
+        print("-" * 50)
+        print("1. 닉네임 변경")
+        print("2. 닉네임 확인")
+        print("3. 회원 탈퇴")
+        print("4. 쿠폰 입력")
+        print("5. 프로그램 정보")
+        print("-" * 50)
+
+        print("\n")
+
+    # 상점 부분 가이드북
+    def getStoreGuideBook(self):
+        print("-" * 50)
+        print("1. 쿠키틀 뽑기")
+        print("2. 다이아몬드 뽑기")
+        print("3. 현재 재화 확인")
+        print("4. 개발자 지원하기")
+        print("-" * 50)
+
+        print("\n\n")
+    
+    # 플레이 부분 가이드북
+    def getPlayGuideBook(self):
+        print("-" * 50)
+        print("1. 시나리오")
+        print("2. 보스전")
+        print("-" * 50)
+
+        print("\n\n\n\n")
+
+    # 왕국 부분 가이드북
+    def getKingdomGuideBook(self):
+        print("-" * 50)
+        print("1. 내 쿠키 보기")
+        print("2. 내 덱 보기")
+        print("3. 왕국 꾸미기")
+        print("-" * 50)
+
+        print("\n\n\n")
+
+    # 내 쿠키 부분 가이드북
+    def getMyCookiesGuideBook(self):
+        print("-" * 50)
+        print("0. 돌아가기")
+        print("1. 쿠키 정보")
+        print("2. 쿠키 버리기")
+        print("3. 쿠키 강화")
+        print("-" * 50)
+
+        print("\n")
+
+    # 기본 가이드북
+    def getMethodGuideBook(self):
+        print("-" * 50)
+        print("0. 돌아가기")
+        print("1. 설정")
+        print("2. 상점")
+        print("3. 플레이")
+        print("4. 내 왕국")
+        print("-" * 50)
+
+        print()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # 설정 구현
 
     # 닉네임 변경
     def setUserNickName(self):
@@ -167,30 +355,103 @@ class CookieRunKingdom:
 
         print()
 
-    # 보유중인 쿠키 출력
-    def getCurrentOwnCookies(self):
-        print("-" * 50)
+    # 설정 부분 담당
+    def setting(self):
+        while True:
+            # 입력값 저장
+            userInput = None
 
-        isPrinted = False
-        printedCounter = 0
-        
-        for cookie in self.userOwnCookieNameToLevel:
-            printedCounter += 1
-            
-            if isPrinted:
-                print(", ", end='')
-            
-            if printedCounter % 5 == 0:
-                print()
+            # 명령어 보여줌
+            self.getSettingGuideBook()
 
-            print(f"[ {cookie} ]", end='')
-            isPrinted = True
-        
-        print()
+            while True:
+                print("[ 설정 ]")
+                try:
+                    userInput = int(input("단축키를 입력하세요(숫자만 가능): "))
+                # 이상값 확인
+                except ValueError:
+                    print("잘못된 입력입니다. 다시 입력해주세요.")
+                    continue
+                else:
+                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                    # 게임종료
+                    if userInput == -1:
+                        print("게임 종료")
+                        exit()
+                    # 돌아가기
+                    if userInput == 0:
+                        return
+                    # 닉네임 변경
+                    if userInput == 1:
+                        self.setUserNickName()
+                        print("\n\n\n\n")
+                        continue
+                    # 닉네임 확인
+                    if userInput == 2:
+                        self.getUserNickName()
+                        continue
+                    # 계정 삭제
+                    if userInput == 3:
+                        print("계정 삭제 완료")
+                        exit()
+                    # 쿠폰 입력
+                    if userInput == 4:
+                        while True:
+                            userInputCode = input("쿠폰 코드 입력: ")
 
-        print("상호작용 할려면 이름으로 접근하세요.")
-        
-        print("-" * 50)
+                            if userInputCode == '-1':
+                                print("게임 종료")
+                                exit()
+                            if userInputCode == '0':
+                                return
+                            
+                            if userInputCode in self.couponCode.keys():
+                                print("입력 성공")
+
+                                self.userGold += self.couponCode[userInputCode][0]
+                                self.userDiamond += self.couponCode[userInputCode][1]
+                                self.frame += self.couponCode[userInputCode][2]
+                                self.cookiePiece += self.couponCode[userInputCode][3]
+
+                                del self.couponCode[userInputCode]
+                                
+                                time.sleep(3)
+
+                                print("\n\n\n")
+
+                                continue
+                    # 프로그램 정보
+                    if userInput == 5:
+                        print("-" * 50)
+                        print("게임명: Cookie Run: Kingdom")
+                        print("개발일자: 2025-06-04")
+                        print("제작자: 황정빈")
+                        print("-" * 50)
+
+                        time.sleep(3)
+
+                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                        continue
+                    else:
+                        print("올바른 번호를 입력해주세요.")
+                        continue
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # 상점 부분
     
     # 뽑기 최적화
     def cookieByLot(self):
@@ -393,6 +654,266 @@ class CookieRunKingdom:
                         print("\n\n\n\n\n\n\n\n\n\n\n")
 
                         continue
+
+    # 유저 재화 출력
+    def getUserGoods(self):
+        print("\n\n\n\n\n\n\n\n\n")
+        print("-" * 50)
+        print(f"골드: {self.userGold}")
+        print(f"다이아몬드: {self.userDiamond}")
+        print(f"쿠키틀: {self.frame}")
+        print("-" * 50)
+
+        time.sleep(3)
+
+        print("\n\n\n")
+    
+    # 개발자 지원하기
+    def supportDeveloper(self):
+        print("\n\n\n\n\n\n\n\n\n")
+        print(" [ 개발자 지원하기 ]")
+        print("-" * 50)
+        print("대구은행 281-13-082351")
+        print("-" * 50)
+
+        time.sleep(10)
+
+        print("\n\n\n\n\n")
+    
+
+    # 상점 부분 담당
+    def store(self):
+        while True:
+            # 입력값 저장
+            userInput = None
+
+            while True:
+                # 명령어 보여줌
+                self.getStoreGuideBook()
+    
+                print("[ 상점 ]")
+                try:
+                    userInput = int(input("단축키를 입력하세요(숫자만 가능): "))
+                # 이상값 확인
+                except ValueError:
+                    print("잘못된 입력입니다. 다시 입력해주세요.")
+                    continue
+                else:
+                    print("\n\n\n\n\n\n\n\n\n\n\n\n")
+                    # 프로그램 종료
+                    if userInput == -1:
+                        print("게임 종료")
+                        exit()
+                    # 돌아가기
+                    if userInput == 0:
+                        return
+                    # 쿠키틀 뽑기
+                    if userInput == 1:
+                        self.cookieFrameByLot()
+                        return
+                    # 다이아몬드 뽑기
+                    if userInput == 2:
+                        self.diamondByLot()
+                        continue
+                    # 현재 재화 확인
+                    if userInput == 3:
+                        self.getUserGoods()
+                        continue
+                    # 개발자 지원하기
+                    if userInput == 4:
+                        self.supportDeveloper()
+                        continue
+                    else:
+                        print("올바른 번호를 입력해주세요.")
+                        continue
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # 플레이 부분
+    
+    # 시나리오 부분 담당
+    def scenario(self):
+        pass
+    
+    # 플레이 부분 담당
+    def play(self):
+        while True:
+            # 입력값 저장
+            userInput = None
+
+            while True:
+                # 명령어 보여줌
+                self.getPlayGuideBook()
+
+                print("[ 플레이 ]")
+                try:
+                    userInput = int(input("단축키를 입력하세요(숫자만 가능): "))
+                # 이상값 확인
+                except ValueError:
+                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
+                    print("잘못된 입력입니다. 다시 입력해주세요.")
+
+                    time.sleep(3)
+                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                    continue
+                else:
+                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                    # 개임 종료
+                    if userInput == -1:
+                        print("게임 종료")
+                        exit()
+                    # 돌아가기
+                    if userInput == 0:
+                        return
+                    # 시나리오
+                    if userInput == 1:
+                        self.currentCookies()
+                        continue
+                    # 보스전
+                    if userInput == 2:
+                        self.userDeck()
+                        continue
+                    else:
+                        print("올바른 번호를 입력해주세요.")
+
+                        time.sleep(3)
+
+                        print("\n\n\n\n\n\n\n\n\n\n\n")
+
+                        continue
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # 왕국 부분
+    
+    # 보유중인 쿠키 출력
+    def getCurrentOwnCookies(self):
+        print("-" * 50)
+
+        isPrinted = False
+        printedCounter = 0
+        
+        for cookie in self.userOwnCookieNameToLevel:
+            printedCounter += 1
+            
+            if isPrinted:
+                print(", ", end='')
+            
+            if printedCounter % 5 == 0:
+                print()
+
+            print(f"[ {cookie} ]", end='')
+            isPrinted = True
+        
+        print()
+
+        print("상호작용 할려면 이름으로 접근하세요.")
+        
+        print("-" * 50)
+
+    # 쿠키 확인 부분 담당
+    def currentCookies(self):
+        interactCookie = None
+        while True:
+            self.getMyCookiesGuideBook()
+
+            self.getCurrentOwnCookies()
+            interactCookie = input("접근할 쿠키의 이름을 입력해주세요: ")
+
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
+            if interactCookie == '-1':
+                print("게임 종료")
+                exit()
+            if interactCookie == '0':
+                return
+
+            print()
+            if interactCookie in self.userOwnCookieNameToLevel.keys():
+                break
+            else:
+                print("\n\n\n\n\n\n\n\n\n\n\n")
+                print("보유하지 않거나 존재하지 않는 쿠키입니다.")
+                time.sleep(3)
+
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        
+        print("\n\n\n\n\n")
+
+        self.getMyCookiesGuideBook()
+
+        while True:
+            print("[ 내 쿠키 ]")
+            try:
+                userInput = int(input("단축키를 입력하세요(숫자만 가능): "))
+            except ValueError:
+                print("잘못된 입력입니다. 다시 입력해주세요.")
+                continue
+            else:
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                # 종료하기
+                if userInput == -1:
+                    print("게임 종료")
+                    exit()
+                # 돌아가기
+                if userInput == 0:
+                    return
+                # 해당 쿠키 정보 출력
+                if userInput == 1:
+                    print("-" * 50)
+                    print(f"[ {interactCookie} ]")
+                    print(allCookiesInfo[interactCookie])
+                    print("-" * 50)
+                    time.sleep(5)
+
+                    print("\n\n\n\n\n")
+                    continue
+                # 해당 쿠키 삭제
+                if userInput == 2:
+                    print("\n\n\n\n\n\n\n\n\n\n")
+                    del self.userOwnCookieNameToLevel[interactCookie]
+                    print(f"{interactCookie} 삭제 완료")
+                    time.sleep(1)
+                    print("\n\n\n")
+                    continue
+                # 해당 쿠키 강화
+                if userInput == 3:
+                    print("\n\n\n\n\n\n\n\n\n\n")
+                    self.cookieStrengthen(interactCookie)
+                    continue
+                else:
+                    print("올바른 번호를 입력해주세요.")
+                    continue
     
     # 강화 조건 최적화
     def cookieStrengthenInner(self, usingCookie, currentLevel):
@@ -495,287 +1016,6 @@ class CookieRunKingdom:
                 print("\n\n\n\n\n\n\n")
                 continue
 
-    # 유저 재화 출력
-    def getUserGoods(self):
-        print("\n\n\n\n\n\n\n\n\n")
-        print("-" * 50)
-        print(f"골드: {self.userGold}")
-        print(f"다이아몬드: {self.userDiamond}")
-        print(f"쿠키틀: {self.frame}")
-        print("-" * 50)
-
-        time.sleep(3)
-
-        print("\n\n\n")
-    
-    # 개발자 지원하기
-    def supportDeveloper(self):
-        print("\n\n\n\n\n\n\n\n\n")
-        print(" [ 개발자 지원하기 ]")
-        print("-" * 50)
-        print("대구은행 281-13-082351")
-        print("-" * 50)
-
-        time.sleep(10)
-
-        print("\n\n\n\n\n")
-
-    # 설정 부분 가이드북
-    def getSettingGuideBook(self):
-        print("-" * 50)
-        print("1. 닉네임 변경")
-        print("2. 닉네임 확인")
-        print("3. 회원 탈퇴")
-        print("4. 쿠폰 입력")
-        print("5. 프로그램 정보")
-        print("-" * 50)
-
-        print("\n")
-
-    # 상점 부분 가이드북
-    def getStoreGuideBook(self):
-        print("-" * 50)
-        print("1. 쿠키틀 뽑기")
-        print("2. 다이아몬드 뽑기")
-        print("3. 현재 재화 확인")
-        print("4. 개발자 지원하기")
-        print("-" * 50)
-
-        print("\n\n")
-
-    # 왕국 부분 가이드북
-    def getKingdomGuideBook(self):
-        print("-" * 50)
-        print("1. 내 쿠키 보기")
-        print("2. 내 덱 보기")
-        print("3. 왕국 꾸미기")
-        print("-" * 50)
-
-        print("\n\n\n")
-
-    # 내 쿠키 부분 가이드북
-    def getMyCookiesGuideBook(self):
-        print("-" * 50)
-        print("0. 돌아가기")
-        print("1. 쿠키 정보")
-        print("2. 쿠키 버리기")
-        print("3. 쿠키 강화")
-        print("-" * 50)
-
-        print("\n")
-
-    # 기본 가이드북
-    def getMethodGuideBook(self):
-        print("-" * 50)
-        print("0. 돌아가기")
-        print("1. 설정")
-        print("2. 상점")
-        print("3. 플레이")
-        print("4. 내 왕국")
-        print("-" * 50)
-
-        print()
-    
-    # 설정 부분 담당
-    def setting(self):
-        while True:
-            # 입력값 저장
-            userInput = None
-
-            # 명령어 보여줌
-            self.getSettingGuideBook()
-
-            while True:
-                print("[ 설정 ]")
-                try:
-                    userInput = int(input("단축키를 입력하세요(숫자만 가능): "))
-                # 이상값 확인
-                except ValueError:
-                    print("잘못된 입력입니다. 다시 입력해주세요.")
-                    continue
-                else:
-                    # 게임종료
-                    if userInput == -1:
-                        print("게임 종료")
-                        exit()
-                    # 돌아가기
-                    if userInput == 0:
-                        return
-                    # 닉네임 변경
-                    if userInput == 1:
-                        self.setUserNickName()
-                        print("\n\n\n\n")
-                        continue
-                    # 닉네임 확인
-                    if userInput == 2:
-                        self.getUserNickName()
-                        continue
-                    # 계정 삭제
-                    if userInput == 3:
-                        print("계정 삭제 완료")
-                        exit()
-                    # 쿠폰 입력
-                    if userInput == 4:
-                        while True:
-                            userInputCode = input("쿠폰 코드 입력: ")
-
-                            if userInputCode == '-1':
-                                print("게임 종료")
-                                exit()
-                            if userInputCode == '0':
-                                return
-                            
-                            if userInputCode in self.couponCode.keys():
-                                print("입력 성공")
-
-                                self.userGold += self.couponCode[userInputCode][0]
-                                self.userDiamond += self.couponCode[userInputCode][1]
-                                self.frame += self.couponCode[userInputCode][2]
-                                self.cookiePiece += self.couponCode[userInputCode][3]
-
-                                del self.couponCode[userInputCode]
-                                
-                                time.sleep(3)
-
-                                print("\n\n\n")
-
-                                continue
-                    # 프로그램 정보
-                    if userInput == 5:
-                        print("-" * 50)
-                        print("게임명: Cookie Run: Kingdom")
-                        print("개발일자: 2025-06-04")
-                        print("제작자: 황정빈")
-                        print("-" * 50)
-
-                        time.sleep(3)
-
-                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-                        continue
-                    else:
-                        print("올바른 번호를 입력해주세요.")
-                        continue
-
-    # 상점 부분 담당
-    def store(self):
-        while True:
-            # 입력값 저장
-            userInput = None
-
-            while True:
-                # 명령어 보여줌
-                self.getStoreGuideBook()
-    
-                print("[ 상점 ]")
-                try:
-                    userInput = int(input("단축키를 입력하세요(숫자만 가능): "))
-                # 이상값 확인
-                except ValueError:
-                    print("잘못된 입력입니다. 다시 입력해주세요.")
-                    continue
-                else:
-                    print("\n\n\n")
-                    # 프로그램 종료
-                    if userInput == -1:
-                        print("게임 종료")
-                        exit()
-                    # 돌아가기
-                    if userInput == 0:
-                        return
-                    # 쿠키틀 뽑기
-                    if userInput == 1:
-                        self.cookieFrameByLot()
-                        return
-                    # 다이아몬드 뽑기
-                    if userInput == 2:
-                        self.diamondByLot()
-                        continue
-                    # 현재 재화 확인
-                    if userInput == 3:
-                        self.getUserGoods()
-                        continue
-                    # 개발자 지원하기
-                    if userInput == 4:
-                        self.supportDeveloper()
-                        continue
-                    else:
-                        print("올바른 번호를 입력해주세요.")
-                        continue
-
-    # 쿠키 확인 부분 담당
-    def currentCookies(self):
-        interactCookie = None
-        while True:
-            self.getMyCookiesGuideBook()
-
-            self.getCurrentOwnCookies()
-            interactCookie = input("접근할 쿠키의 이름을 입력해주세요: ")
-
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
-
-            if interactCookie == '-1':
-                print("게임 종료")
-                exit()
-            if interactCookie == '0':
-                return
-
-            print()
-            if interactCookie in self.userOwnCookieNameToLevel.keys():
-                break
-            else:
-                print("\n\n\n\n\n\n\n\n\n\n\n")
-                print("보유하지 않거나 존재하지 않는 쿠키입니다.")
-                time.sleep(3)
-
-                print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
-        
-        print("\n\n\n\n\n")
-
-        self.getMyCookiesGuideBook()
-
-        while True:
-            print("[ 내 쿠키 ]")
-            try:
-                userInput = int(input("단축키를 입력하세요(숫자만 가능): "))
-            except ValueError:
-                print("잘못된 입력입니다. 다시 입력해주세요.")
-                continue
-            else:
-                print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
-                # 종료하기
-                if userInput == -1:
-                    print("게임 종료")
-                    exit()
-                # 돌아가기
-                if userInput == 0:
-                    return
-                # 해당 쿠키 정보 출력
-                if userInput == 1:
-                    print("-" * 50)
-                    print(f"[ {interactCookie} ]")
-                    print(allCookiesInfo[interactCookie])
-                    print("-" * 50)
-                    time.sleep(5)
-
-                    print("\n\n\n\n\n")
-                    continue
-                # 해당 쿠키 삭제
-                if userInput == 2:
-                    print("\n\n\n\n\n\n\n\n\n\n")
-                    del self.userOwnCookieNameToLevel[interactCookie]
-                    print(f"{interactCookie} 삭제 완료")
-                    time.sleep(1)
-                    print("\n\n\n")
-                    continue
-                # 해당 쿠키 강화
-                if userInput == 3:
-                    print("\n\n\n\n\n\n\n\n\n\n")
-                    self.cookieStrengthen(interactCookie)
-                    continue
-                else:
-                    print("올바른 번호를 입력해주세요.")
-                    continue
-    
     # 내 전투력 보기
     def getUserDeckTotalCombatPower(self):
         print("[ 내 덱 ]")
@@ -989,6 +1229,17 @@ class CookieRunKingdom:
 
                         continue
 
+
+
+
+
+
+
+
+
+
+    # 메인 플레이
+
     # 메인 플레이를 진행할 플레이 함수
     def playCookieRunKingdom(self):
         while True:
@@ -1007,7 +1258,7 @@ class CookieRunKingdom:
                     print("잘못된 입력입니다. 다시 입력해주세요.")
                     continue
                 else:
-                    print("\n\n\n")
+                    print("\n\n\n\n\n\n\n\n\n")
                     if userInput == -1:
                         print("게임 종료")
                         exit()
