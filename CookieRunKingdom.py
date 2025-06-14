@@ -836,6 +836,10 @@ class CookieRunKingdom:
             else:
                 print("올바르지 않은 값입니다. 다시 입력해주세요.")
                 continue
+
+    # 보스전 부분 담당
+    def bossBattle(self):
+        pass
     
     # 플레이 부분 담당
     def play(self):

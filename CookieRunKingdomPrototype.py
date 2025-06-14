@@ -121,6 +121,10 @@ class CookieRunKingdom:
     def scenario(self):
         pass
 
+    # 보스전 부분 담당
+    def bossBattke(self):
+        pass
+
     # 플레이 부분 담당
     def play(self):
         pass
