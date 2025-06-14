@@ -196,6 +196,12 @@ allBossBattle = {
 # 보스전이랑 요구되는 전투력 딕셔너리
 bossBattleToRequiredCombatPower = {1: 8000, 2: 12000, 3: 18000, 4: 25000, 5: 32000, 6: 40000, 7: 60000, 8: 90000, 9: 120000, 10: 150000}
 
+# 건물이랑 골드 가격
+buildingToGoldPrice = {"쿠키의 쉼터": 1000, "골드 제작소": 2500, "다이아몬드 제작소": 2500, "쿠키틀 제작소": 2500, "쿠키 조각 제작소": 2500, "암소의 텃밭": 100000000}
+
+# 건물의 설명 저장
+buildingToInfo = {"쿠키의 쉼터": "1개당 25%의 전투 추가 보상이 지급된다.", "골드 제작소": "골드 1000-10000개를 랜덤한 확률로 지급한다.\n확률은 건물의 개수에 따라 달라진다.", "다이아몬드 제작소": "다이아몬드 150-1000개를 랜덤한 확률로 지급한다.\n확률은 건물의 개수에 따라 달라진다.", "쿠키틀 제작소": "쿠키틀 1-10개를 랜덤한 확률로 지급한다.\n확률은 건물의 개수에 따라 달라진다.", "쿠키 조각 제작소": "쿠키 조각 5-100개를 랜덤한 확률로 지급한다.\n확률은 건물의 개수에 따라 달라진다.", "암소의 텃밭": "우성이가 살고있는 곳으로 아무 능력은 없다."}
+
 # 희귀도가 일반인 쿠키들
 commonCookiesList = ["용감한 쿠키", "딸기맛 쿠키", "마법사맛 쿠키", "닌자맛 쿠키", "근육맛 쿠키"]
 # 희귀도가 희귀인 쿠키들
@@ -234,7 +240,7 @@ class CookieRunKingdom:
         # 보유 쿠키 이름-전투력 딕셔너리
         self.userOwnCookieNameToCombatPower = {"용감한 쿠키": 1000, "딸기맛 쿠키": 1000, "마법사맛 쿠키": 1000, "닌자맛 쿠키": 1000, "근육맛 쿠키": 1000}
         self.userCookiesCounter = 1                      # 보유 쿠키 수 저장
-        self.userGold = 0                                # 골드
+        self.userGold = 10000                            # 골드
         self.userDiamond = 900                           # 다이아몬드
         self.currentStage = 1                            # 현재 스테이지 저장
         self.frame = 3                                   # 현재 남아있는 뽑기 틀의 개수 저장
@@ -244,6 +250,8 @@ class CookieRunKingdom:
         self.userCombatPower = 5000                      # 유저의 전투력 저장
         self.userCurrentScenarioStage = 1                # 유저의 현재 시나리오 스테이지 저장
         self.userCurrentBossBattleStage = 1              # 유저의 현재 보스전 스테이지 저장
+        # 유저의 현재 건물의 개수 저장
+        self.userCurrentBuilding = {"쿠키의 쉼터": 0, "골드 제작소": 0, "다이아몬드 제작소": 0, "쿠키틀 제작소": 0, "쿠키 조각 제작소": 0, "암소의 텃밭": 0}
 
         # 쿠폰 코드 저장 (리스트 형태로 보상이 저장 [골드, 다이아몬드, 쿠키틀, 쿠키 조각])
         self.couponCode = {"암소의 과학 공부": [10000, 3000, 100, 100], "암소의 포트폴리오": [3000, 4500, 125, 200]}
@@ -827,7 +835,7 @@ class CookieRunKingdom:
                     time.sleep(random.randint(3, 10))
                     print("-" * 50)
                     print("스테이지 클리어")
-                    print(f"보상: 쿠키조각({tryStage * 25})")
+                    print(f"보상: 쿠키조각({tryStage * 25 * (self.userCurrentBuilding["쿠키의 쉼터"] * 25 + 100) // 100})")
                     time.sleep(3)
 
                     if tryStage == self.userCurrentScenarioStage:
@@ -899,7 +907,7 @@ class CookieRunKingdom:
                     time.sleep(random.randint(3, 10))
                     print("-" * 50)
                     print("스테이지 클리어")
-                    print(f"보상: 쿠키조각({tryStage * 100})")
+                    print(f"보상: 쿠키조각({tryStage * 100 * (self.userCurrentBuilding["쿠키의 쉼터"] * 25 + 100) // 100})")
                     time.sleep(3)
 
                     if tryStage == self.userCurrentBossBattleStage:
@@ -1349,6 +1357,9 @@ class CookieRunKingdom:
                     print("올바른 번호를 입력해주세요.")
                     continue
 
+    # 왕국 꾸미기 부분 담당
+    def decorateKingdom(self):
+        pass
 
     # 왕국 부분 담당
     def kingdom(self):
@@ -1391,8 +1402,7 @@ class CookieRunKingdom:
                         continue
                     # 왕국 꾸미기
                     if userInput == 3:
-                        print("미완성")
-                        raise RuntimeError
+                        self.decorateKingdom()
                         continue
                     else:
                         print("올바른 번호를 입력해주세요.")

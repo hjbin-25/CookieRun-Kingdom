@@ -165,6 +165,10 @@ class CookieRunKingdom:
     def userDeck(self):
         pass
 
+    # 왕국 꾸미기 부분 담당
+    def decorateKingdom(self):
+        pass
+
     # 왕국 부분 담당
     def kingdom(self):
         pass
