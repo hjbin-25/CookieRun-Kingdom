@@ -171,7 +171,7 @@ allScenario = {1: """### **1. 초원의 하루**
 scenarioToRequiredCombatPower = {1: 5000, 2: 7000, 3: 10000, 4: 12500, 5: 15000, 6: 17500, 7: 25000, 8: 50000, 9: 65000, 10: 70000}
 
 # 보스전 저장
-bossBatle = {
+allBossBattle = {
     1: "먼지쥐 두더지\n지하에서 먼지와 돌을 먹고 자란 두더지.\n시야는 나쁘지만 예민한 진동 감각으로\n무작위 돌진을 날린다. 예상이 어렵다.",
 
     2: "슬라임 대장 스키뇽\n체액에 독성이 섞인 위험한 슬라임.\n공격을 피하더라도 끈적한 점액이\n움직임을 방해한다.",
@@ -194,7 +194,7 @@ bossBatle = {
 }
 
 # 보스전이랑 요구되는 전투력 딕셔너리
-bossBatleToRequiredCombatPower = {1: 8000, 2: 12000, 3: 18000, 4: 25000, 5: 32000, 6: 40000, 7: 60000, 8: 90000, 9: 120000, 10: 150000}
+bossBattleToRequiredCombatPower = {1: 8000, 2: 12000, 3: 18000, 4: 25000, 5: 32000, 6: 40000, 7: 60000, 8: 90000, 9: 120000, 10: 150000}
 
 # 희귀도가 일반인 쿠키들
 commonCookiesList = ["용감한 쿠키", "딸기맛 쿠키", "마법사맛 쿠키", "닌자맛 쿠키", "근육맛 쿠키"]
@@ -235,14 +235,15 @@ class CookieRunKingdom:
         self.userOwnCookieNameToCombatPower = {"용감한 쿠키": 1000, "딸기맛 쿠키": 1000, "마법사맛 쿠키": 1000, "닌자맛 쿠키": 1000, "근육맛 쿠키": 1000}
         self.userCookiesCounter = 1                      # 보유 쿠키 수 저장
         self.userGold = 0                                # 골드
-        self.userDiamond = 90000                          # 다이아몬드
+        self.userDiamond = 900                           # 다이아몬드
         self.currentStage = 1                            # 현재 스테이지 저장
-        self.frame = 1000                                  # 현재 남아있는 뽑기 틀의 개수 저장
+        self.frame = 3                                   # 현재 남아있는 뽑기 틀의 개수 저장
         self.cookiePiece = 0                             # 강화에 쓸 쿠키 조각 개수 저장
         # 유저의 현제 덱 저장
         self.userCurrentDeck = ["용감한 쿠키", "딸기맛 쿠키", "마법사맛 쿠키", "닌자맛 쿠키", "근육맛 쿠키"]
         self.userCombatPower = 5000                      # 유저의 전투력 저장
         self.userCurrentScenarioStage = 1                # 유저의 현재 시나리오 스테이지 저장
+        self.userCurrentBossBattleStage = 1              # 유저의 현재 보스전 스테이지 저장
 
         # 쿠폰 코드 저장 (리스트 형태로 보상이 저장 [골드, 다이아몬드, 쿠키틀, 쿠키 조각])
         self.couponCode = {"암소의 과학 공부": [10000, 3000, 100, 100], "암소의 포트폴리오": [3000, 4500, 125, 200]}
@@ -839,7 +840,62 @@ class CookieRunKingdom:
 
     # 보스전 부분 담당
     def bossBattle(self):
-        pass
+        while True:
+            print("[ 보스전 ]")
+            print("-" * 50)
+            if (self.userCurrentBossBattleStage <= 10):
+                print(f"현재 스테이지: {self.userCurrentBossBattleStage}")
+            else:
+                print("스테이지가 더 없습니다")
+                time.sleep(3)
+                
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                return
+            print("-" * 50)
+            
+            print()
+
+            userInput = input("스테이지를 진행하시겠습니까? (y/n): ")
+
+            if userInput == '-1':
+                print("게임 종료")
+                exit()
+            if userInput == '0':
+                return
+            if userInput == 'y':
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                print(allBossBattle[self.userCurrentBossBattleStage])
+                time.sleep(10)
+
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                if self.userCombatPower >= bossBattleToRequiredCombatPower[self.userCurrentBossBattleStage]:
+                    print("전투중...")
+                    time.sleep(random.randint(3, 10))
+                    print("-" * 50)
+                    print("스테이지 클리어")
+                    print(f"보상: 쿠키조각({self.userCurrentBossBattleStage * 100})")
+                    time.sleep(3)
+
+                    self.userCurrentBossBattleStage += 1
+                    self.cookiePiece += self.userCurrentBossBattleStage * 25
+
+                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                    continue
+                else:
+                    print("전투중...")
+                    time.sleep(random.randint(3, 10))
+                    print("-" * 50)
+                    print("스테이지 실패")
+                    time.sleep(3)
+
+                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                    continue
+            if userInput == 'n':
+                print("\n\n\n\n\n\n\n\n\n\n\n\n")
+                return
+            else:
+                print("올바르지 않은 값입니다. 다시 입력해주세요.")
+                continue
     
     # 플레이 부분 담당
     def play(self):
@@ -878,7 +934,7 @@ class CookieRunKingdom:
                         continue
                     # 보스전
                     if userInput == 2:
-                        raise KeyboardInterrupt
+                        self.bossBattle()
                         continue
                     else:
                         print("올바른 번호를 입력해주세요.")
