@@ -57,6 +57,10 @@ class CookieRunKingdom:
     def getMyCookiesGuideBook(self):
         pass
 
+    # 내 왕국 부분 가이드북
+    def getDecorateKingdomGuideBook(self):
+        pass
+
     # 기본 가이드북
     def getMethodGuideBook(self):
         pass

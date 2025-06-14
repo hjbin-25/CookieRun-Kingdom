@@ -334,6 +334,16 @@ class CookieRunKingdom:
         print("-" * 50)
 
         print("\n")
+    
+    # 왕국 꾸미기 부분 가이드북
+    def getDecorateKingdomGuideBook(self):
+        print("-" * 50)
+        print("0. 돌아가기")
+        print("1. 내 건물")
+        print("2. 건물 짓기")
+        print("-" * 50)
+
+        print("\n\n")
 
     # 기본 가이드북
     def getMethodGuideBook(self):
@@ -1356,10 +1366,70 @@ class CookieRunKingdom:
                 else:
                     print("올바른 번호를 입력해주세요.")
                     continue
+    
+    # 내 건물 부분 담당
+    def myBuilding(self):
+        print("-" * 50)
+        cnt = 0
+        for buildingKey in self.userCurrentBuilding:
+            for _ in range(self.userCurrentBuilding[buildingKey]):
+                if cnt != 0:
+                    print(", ", end='')
+
+                print(f"[ {buildingKey} ]", end='')
+                cnt += 1
+
+                if cnt % 5 == 0:
+                    print()
+        print("-" * 50)
+
+    # 건물 짓기 부분 담당
+    def buildBuilding(self):
+        pass
 
     # 왕국 꾸미기 부분 담당
     def decorateKingdom(self):
-        pass
+        while True:
+            # 명령어 보여줌
+            self.getKingdomGuideBook()
+
+            print("[ 왕국 꾸미기 ]")
+            try:
+                userInput = int(input("단축키를 입력하세요(숫자만 가능): "))
+            # 이상값 확인
+            except ValueError:
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
+                print("잘못된 입력입니다. 다시 입력해주세요.")
+
+                time.sleep(3)
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                continue
+            else:
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                # 개임 종료
+                if userInput == -1:
+                    print("게임 종료")
+                    exit()
+                # 돌아가기
+                if userInput == 0:
+                    return
+                # 내 건물
+                if userInput == 1:
+                    self.myBuilding()
+                    continue
+                # 건물 짓기
+                if userInput == 2:
+                    self.buildBuilding()
+                    continue
+                else:
+                    print("올바른 번호를 입력해주세요.")
+
+                    time.sleep(3)
+
+                    print("\n\n\n\n\n\n\n\n\n\n\n")
+
+                    continue
 
     # 왕국 부분 담당
     def kingdom(self):
