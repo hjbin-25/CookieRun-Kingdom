@@ -782,21 +782,34 @@ class CookieRunKingdom:
     # 시나리오 부분 담당
     def scenario(self):
         while True:
+            tryStage = 0
             print("[ 시나리오 ]")
-            print("-" * 50)
-            if (self.userCurrentScenarioStage <= 10):
-                print(f"현재 스테이지: {self.userCurrentScenarioStage}")
+            try:
+                tryStage = int(input("시도할 스테이지를 입력하세요: "))
+            # 이상값 확인
+            except ValueError:
+                print("잘못된 입력입니다. 다시 입력해주세요.")
+                continue
             else:
-                print("스테이지가 더 없습니다")
-                time.sleep(3)
-                
-                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-                return
-            print("-" * 50)
+                print("\n\n\n\n\n\n\n\n\n")
+                if tryStage == -1:
+                    print("게임 종료")
+                    exit()
+                if tryStage == 0:
+                    return
+                if 1 <= tryStage <= 10:
+                    if tryStage > self.userCurrentScenarioStage:
+                        print("이전 스테이지를 클리어해야됩니다.")
+                        time.sleep(3)
+                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                        continue
+                else:
+                    print("올바른 번호를 입력해주세요.")
+                    continue
             
-            print()
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
-            userInput = input("스테이지를 진행하시겠습니까? (y/n): ")
+            userInput = input(f"스테이지{tryStage}를 진행하시겠습니까? (y/n): ")
 
             if userInput == '-1':
                 print("게임 종료")
@@ -805,20 +818,21 @@ class CookieRunKingdom:
                 return
             if userInput == 'y':
                 print("\n\n\n\n\n\n\n\n")
-                print(allScenario[self.userCurrentScenarioStage])
+                print(allScenario[tryStage])
                 time.sleep(10)
 
                 print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-                if self.userCombatPower >= scenarioToRequiredCombatPower[self.userCurrentScenarioStage]:
+                if self.userCombatPower >= scenarioToRequiredCombatPower[tryStage]:
                     print("전투중...")
                     time.sleep(random.randint(3, 10))
                     print("-" * 50)
                     print("스테이지 클리어")
-                    print(f"보상: 쿠키조각({self.userCurrentScenarioStage * 25})")
+                    print(f"보상: 쿠키조각({tryStage * 25})")
                     time.sleep(3)
 
-                    self.userCurrentScenarioStage += 1
-                    self.cookiePiece += self.userCurrentScenarioStage * 25
+                    if tryStage == self.userCurrentScenarioStage:
+                        self.userCurrentScenarioStage += 1
+                    self.cookiePiece += tryStage * 25
 
                     print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
                     continue
@@ -840,21 +854,33 @@ class CookieRunKingdom:
 
     # 보스전 부분 담당
     def bossBattle(self):
-        while True:
+       while True:
+            tryStage = 0
             print("[ 보스전 ]")
-            print("-" * 50)
-            if (self.userCurrentBossBattleStage <= 10):
-                print(f"현재 스테이지: {self.userCurrentBossBattleStage}")
+            try:
+                tryStage = int(input("시도할 스테이지를 입력하세요: "))
+            # 이상값 확인
+            except ValueError:
+                print("잘못된 입력입니다. 다시 입력해주세요.")
+                continue
             else:
-                print("스테이지가 더 없습니다")
-                time.sleep(3)
-                
-                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-                return
-            print("-" * 50)
+                print("\n\n\n\n\n\n\n\n\n")
+                if tryStage == -1:
+                    print("게임 종료")
+                    exit()
+                if tryStage == 0:
+                    return
+                if 1 <= tryStage <= 10:
+                    if tryStage > self.userCurrentBossBattleStage:
+                        print("이전 스테이지를 클리어해야됩니다.")
+                        time.sleep(3)
+                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                        continue
+                else:
+                    print("올바른 번호를 입력해주세요.")
+                    continue
             
-            print()
-
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
             userInput = input("스테이지를 진행하시겠습니까? (y/n): ")
 
             if userInput == '-1':
@@ -864,20 +890,21 @@ class CookieRunKingdom:
                 return
             if userInput == 'y':
                 print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-                print(allBossBattle[self.userCurrentBossBattleStage])
+                print(allBossBattle[tryStage])
                 time.sleep(10)
 
                 print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-                if self.userCombatPower >= bossBattleToRequiredCombatPower[self.userCurrentBossBattleStage]:
+                if self.userCombatPower >= bossBattleToRequiredCombatPower[tryStage]:
                     print("전투중...")
                     time.sleep(random.randint(3, 10))
                     print("-" * 50)
                     print("스테이지 클리어")
-                    print(f"보상: 쿠키조각({self.userCurrentBossBattleStage * 100})")
+                    print(f"보상: 쿠키조각({tryStage * 100})")
                     time.sleep(3)
 
-                    self.userCurrentBossBattleStage += 1
-                    self.cookiePiece += self.userCurrentBossBattleStage * 25
+                    if tryStage == self.userCurrentBossBattleStage:
+                        self.userCurrentBossBattleStage += 1
+                    self.cookiePiece += tryStage * 25
 
                     print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
                     continue
