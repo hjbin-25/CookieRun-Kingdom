@@ -1460,7 +1460,74 @@ class CookieRunKingdom:
 
     # 건물 짓기 부분 담당
     def buildBuilding(self):
-        pass
+        while True:
+            print("[ 건물 짓기 ]")
+            print("-" * 50)
+            cnt = 0
+            for building in buildingToInfo.keys():
+                if cnt != 0:
+                    print(", ", end='')
+                print(f"[ {building} ]", end='')
+                cnt += 1
+
+                if cnt % 5 == 0:
+                    print()
+            print('\n' + "-" * 50)
+
+            print()
+
+            print("-" * 50)
+            print("건물 이름을 통해 상요작용 합니다.")
+            print("-" * 50)
+
+            interactBuilding = input("지을 건물을 선택 해주세요: ")
+
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+            if interactBuilding == '-1':
+                print("게임 종료")
+                exit()
+            if interactBuilding == '0':
+                return
+            if interactBuilding in buildingToInfo.keys():
+                if self.userGold >= buildingToGoldPrice[interactBuilding]:
+                    while True:
+                        userDecision = input(f"{interactBuilding}을 {buildingToGoldPrice[interactBuilding]}골드를 지급하고 건설 하시겠습니까?(y/n): ")
+
+                        if userDecision == '-1':
+                            print("게임 종료")
+                            exit()
+                        if userDecision == '0':
+                            break
+                        if userDecision == 'y':
+                            self.userGold -= buildingToGoldPrice[interactBuilding]
+                            self.userCurrentBuilding[interactBuilding] += 1
+
+                            print("건물 구매가 완료 되었습니다.")
+                            time.sleep(3)
+                            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                            break
+                        if userDecision == 'n':
+                            print("건물 구매가 취소 되었습니다.")
+                            time.sleep(3)
+                            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                            break
+                        else:
+                            print("올바른 입력을 해주세요.")
+                            time.sleep(3)
+                            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                            continue
+                    continue
+                else:
+                    print("골드가 부족합니다.")
+                    time.sleep(3)
+                    print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                    continue
+                continue
+            else:
+                print("존재하지 않는 건물입니다. 다시 입력해주세요.")
+                time.sleep(3)
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                continue
 
     # 왕국 꾸미기 부분 담당
     def decorateKingdom(self):
