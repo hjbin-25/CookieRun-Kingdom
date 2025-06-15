@@ -77,6 +77,10 @@ class CookieRunKingdom:
     def getUserNickName(self):
         pass
 
+    # 확률 조회
+    def getProbablity(self):
+        pass
+
     # 설정 부분 담당
     def setting(self):
         pass

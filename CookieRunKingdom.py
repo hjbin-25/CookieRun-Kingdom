@@ -290,9 +290,10 @@ class CookieRunKingdom:
         print("3. 회원 탈퇴")
         print("4. 쿠폰 입력")
         print("5. 프로그램 정보")
+        print("6. 확률 조회")
         print("-" * 50)
 
-        print("\n")
+        print()
 
     # 상점 부분 가이드북
     def getStoreGuideBook(self):
@@ -402,6 +403,24 @@ class CookieRunKingdom:
         print("-" * 50)
 
         print()
+    
+    # 확률 조회
+    def getProbablity(self):
+        print("[ 확률 조회 ]")
+        print("-" * 50)
+        print("뽑기 확률")
+        print("common: 30%")
+        print("rare: 25%")
+        print("epic: 25%")
+        print("legendary: 10%")
+        print("acient: 9%")
+        print("beast: 1%")
+        print("-" * 50)
+
+        time.sleep(10)
+
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        return
 
     # 설정 부분 담당
     def setting(self):
@@ -409,10 +428,10 @@ class CookieRunKingdom:
             # 입력값 저장
             userInput = None
 
-            # 명령어 보여줌
-            self.getSettingGuideBook()
-
             while True:
+                # 명령어 보여줌
+                self.getSettingGuideBook()
+
                 print("[ 설정 ]")
                 try:
                     userInput = int(input("단축키를 입력하세요(숫자만 가능): "))
@@ -480,6 +499,11 @@ class CookieRunKingdom:
 
                         print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
                         continue
+                    # 확률 조회
+                    if userInput == 6:
+                        self.getProbablity()
+                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                        continue
                     else:
                         print("올바른 번호를 입력해주세요.")
                         continue
@@ -507,7 +531,7 @@ class CookieRunKingdom:
 
         additionalCombatPower = 0
 
-        if chosenResult <= 50:
+        if chosenResult <= 30:
             appendCookie = commonCookiesList[random.randint(0, len(commonCookiesList) - 1)]
 
             additionalCombatPower = 1000
@@ -1406,6 +1430,7 @@ class CookieRunKingdom:
                     print("-" * 50)
                     print("1. 건물 정보")
                     print("2. 건물 파괴")
+                    print("3. 보상 수령")
                     print("-" * 50)
 
                     print("[ 내 건물 ]")
@@ -1442,6 +1467,53 @@ class CookieRunKingdom:
                             print("건물 제거 및 골드 반환(2000)")
                             time.sleep(3)
                             print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                            continue
+                        # 보상 수령
+                        if userInput == 3:
+                            if interactBuilding == "쿠키의 쉼터":
+                                print("수령할 보상이 없습니다.")
+
+                                time.sleep(3)
+                                
+                                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                            elif interactBuilding == "골드 제작소":
+                                rewardGold = random.randint(900 + self.userCurrentBuilding["골드 제작소"] * 100, 9900 + self.userCurrentBuilding["골드 제작소"] * 100)
+                                print(f"{rewardGold} 골드 지급")
+                                self.userGold += rewardGold
+
+                                time.sleep(3)
+
+                                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                            elif interactBuilding == "다이아몬드 제작소":
+                                rewardDiamond = random.randint(140 + self.userCurrentBuilding["다이아몬드 제작소"] * 10, 990 + self.userCurrentBuilding["다이아몬드 제작소"] * 10)
+                                print(f"{rewardDiamond} 골드 지급")
+                                self.userDiamond += rewardDiamond
+
+                                time.sleep(3)
+
+                                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                            elif interactBuilding == "쿠키틀 제작소":
+                                rewardCookieFrame = random.randint(0 + self.userCurrentBuilding["쿠키틀 제작소"], 9 + self.userCurrentBuilding["쿠키틀 제작소"])
+                                print(f"{rewardCookieFrame} 골드 지급")
+                                self.frame += rewardCookieFrame
+
+                                time.sleep(3)
+
+                                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                            elif interactBuilding == "쿠키 조각 제작소":
+                                rewardCookiePiece = random.randint(4 + self.userCurrentBuilding["쿠키 조각 제작소"], 99 + self.userCurrentBuilding["쿠키 조각 제작소"])
+                                print(f"{rewardCookiePiece} 골드 지급")
+                                self.cookiePiece += rewardCookiePiece
+
+                                time.sleep(3)
+
+                                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                            else:
+                                print("우성이의 텃밭은 그 누구도 건들일 수 없다.")
+                                
+                                time.sleep(3)
+
+                                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
                             continue
                         else:
                             print("올바른 번호를 입력해주세요.")
