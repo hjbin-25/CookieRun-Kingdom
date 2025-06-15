@@ -251,7 +251,7 @@ class CookieRunKingdom:
         self.userCurrentScenarioStage = 1                # 유저의 현재 시나리오 스테이지 저장
         self.userCurrentBossBattleStage = 1              # 유저의 현재 보스전 스테이지 저장
         # 유저의 현재 건물의 개수 저장
-        self.userCurrentBuilding = {"쿠키의 쉼터": 0, "골드 제작소": 0, "다이아몬드 제작소": 0, "쿠키틀 제작소": 0, "쿠키 조각 제작소": 0, "암소의 텃밭": 0}
+        self.userCurrentBuilding = {"쿠키의 쉼터": 1, "골드 제작소": 0, "다이아몬드 제작소": 0, "쿠키틀 제작소": 0, "쿠키 조각 제작소": 0, "암소의 텃밭": 0}
 
         # 쿠폰 코드 저장 (리스트 형태로 보상이 저장 [골드, 다이아몬드, 쿠키틀, 쿠키 조각])
         self.couponCode = {"암소의 과학 공부": [10000, 3000, 100, 100], "암소의 포트폴리오": [3000, 4500, 125, 200]}
@@ -1369,19 +1369,94 @@ class CookieRunKingdom:
     
     # 내 건물 부분 담당
     def myBuilding(self):
-        print("-" * 50)
-        cnt = 0
-        for buildingKey in self.userCurrentBuilding:
-            for _ in range(self.userCurrentBuilding[buildingKey]):
-                if cnt != 0:
-                    print(", ", end='')
+        while True:
+            print("[ 내 건물 ]")
+            print("-" * 50)
+            cnt = 0
+            for buildingKey in self.userCurrentBuilding:
+                for _ in range(self.userCurrentBuilding[buildingKey]):
+                    if cnt != 0:
+                        print(", ", end='')
 
-                print(f"[ {buildingKey} ]", end='')
-                cnt += 1
+                    print(f"[ {buildingKey} ]", end='')
+                    cnt += 1
 
-                if cnt % 5 == 0:
-                    print()
-        print("-" * 50)
+                    if cnt % 5 == 0:
+                        print()
+            print("\n" + "-" * 50)
+
+            print()
+            
+            print("-" * 50)
+            print("상호작용 할려면 이름으로 접근하세요.")
+            print("-" * 50)
+
+            print()
+
+            interactBuilding = input("접근할 건물의 이름을 입력해주세요: ")
+
+            if interactBuilding == '-1':
+                print("게임 종료")
+                exit()
+            if interactBuilding == '0':
+                return
+            if interactBuilding in self.userCurrentBuilding.keys():
+                while True:
+                    # 명령어 보여줌
+                    print("-" * 50)
+                    print("1. 건물 정보")
+                    print("2. 건물 파괴")
+                    print("-" * 50)
+
+                    print("[ 내 건물 ]")
+                    try:
+                        userInput = int(input("단축키를 입력하세요(숫자만 가능): "))
+                    # 이상값 확인
+                    except ValueError:
+                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
+                        print("잘못된 입력입니다. 다시 입력해주세요.")
+
+                        time.sleep(3)
+                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                        continue
+                    else:
+                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                        # 개임 종료
+                        if userInput == -1:
+                            print("게임 종료")
+                            exit()
+                        # 돌아가기
+                        if userInput == 0:
+                            break
+                        # 건물 정보
+                        if userInput == 1:
+                            print(buildingToInfo[interactBuilding])
+                            time.sleep(10)
+                            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                            continue
+                        # 건물 제거
+                        if userInput == 2:
+                            self.userCurrentBuilding[interactBuilding] -= 1
+                            self.userGold += 2000
+                            print("건물 제거 및 골드 반환(2000)")
+                            time.sleep(3)
+                            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                            continue
+                        else:
+                            print("올바른 번호를 입력해주세요.")
+
+                            time.sleep(3)
+
+                            print("\n\n\n\n\n\n\n\n\n\n\n")
+
+                            continue
+                continue
+            else:
+                print("보유하지 않는 건물 입니다.")
+                time.sleep(3)
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                continue
 
     # 건물 짓기 부분 담당
     def buildBuilding(self):
@@ -1391,7 +1466,7 @@ class CookieRunKingdom:
     def decorateKingdom(self):
         while True:
             # 명령어 보여줌
-            self.getKingdomGuideBook()
+            self.getDecorateKingdomGuideBook()
 
             print("[ 왕국 꾸미기 ]")
             try:
