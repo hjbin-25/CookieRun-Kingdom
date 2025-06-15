@@ -226,7 +226,7 @@ class CookieRunKingdom:
 
             isUserAgree = input(f"{tempUserName}으로 하시겠습니까? (y, n): ")
 
-            if isUserAgree == 'y':
+            if isUserAgree == 'y' or isUserAgree == 'Y':
                 break
             
             print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
@@ -388,7 +388,7 @@ class CookieRunKingdom:
                 print("게임 종료")
                 exit()
 
-            if isUserAgree == 'y':
+            if isUserAgree == 'y' or isUserAgree == 'Y':
                 self.userNickName = newUserNickName
                 print("닉네임이 성공적으로 변경되었습니다.")
                 return
@@ -858,7 +858,7 @@ class CookieRunKingdom:
                 exit()
             if userInput == '0':
                 return
-            if userInput == 'y':
+            if userInput == 'y' or userInput == 'Y':
                 print("\n\n\n\n\n\n\n\n")
                 print(allScenario[tryStage])
                 time.sleep(10)
@@ -887,7 +887,7 @@ class CookieRunKingdom:
 
                     print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
                     continue
-            if userInput == 'n':
+            if userInput == 'n' or userInput == 'N':
                 print("\n\n\n\n\n\n\n\n\n\n\n\n")
                 return
             else:
@@ -930,7 +930,7 @@ class CookieRunKingdom:
                 exit()
             if userInput == '0':
                 return
-            if userInput == 'y':
+            if userInput == 'y' or userInput == 'Y':
                 print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
                 print(allBossBattle[tryStage])
                 time.sleep(10)
@@ -959,7 +959,7 @@ class CookieRunKingdom:
 
                     print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
                     continue
-            if userInput == 'n':
+            if userInput == 'n' or userInput == 'N':
                 print("\n\n\n\n\n\n\n\n\n\n\n\n")
                 return
             else:
@@ -1219,10 +1219,10 @@ class CookieRunKingdom:
                 print("\n\n\n\n\n\n\n\n\n\n\n")
                 return
 
-            if userInput == 'y':
+            if userInput == 'y' or userInput == 'Y':
                 self.cookieStrengthenInner(usingCookie, self.userOwnCookieNameToLevel[usingCookie])
                 continue
-            elif userInput == 'n':
+            elif userInput == 'n' or userInput == 'N':
                 print("\n\n\n\n\n\n\n\n\n")
                 return
             else:
@@ -1570,7 +1570,7 @@ class CookieRunKingdom:
                             exit()
                         if userDecision == '0':
                             break
-                        if userDecision == 'y':
+                        if userDecision == 'y' or userDecision == 'Y':
                             self.userGold -= buildingToGoldPrice[interactBuilding]
                             self.userCurrentBuilding[interactBuilding] += 1
 
@@ -1578,7 +1578,7 @@ class CookieRunKingdom:
                             time.sleep(3)
                             print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
                             break
-                        if userDecision == 'n':
+                        if userDecision == 'n' or userDecision == 'N':
                             print("건물 구매가 취소 되었습니다.")
                             time.sleep(3)
                             print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
