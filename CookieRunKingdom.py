@@ -219,42 +219,161 @@ beastCookiesList = ["이터널슈가 쿠키", "쉐도우밀크 쿠키"]
 class CookieRunKingdom:
     # 기본적인 정보를 할당 및 호출할 생성자
     def __init__(self):
-        tempUserName = None
+        userId = ""
+        userPw = ""
+        tempGold = 10000
+        tempDiamond = 900
+        tempCookieFrame = 3
+        tempCookiePieces = 0
+        tempCurrentScenarioStage = 1
+        tempCurrentBossBattleStage = 1
+        tempBuildingCount = [1, 0, 0, 0, 0, 0]
 
-        while True:
-            tempUserName = input("닉네임: ")
-
-            isUserAgree = input(f"{tempUserName}으로 하시겠습니까? (y, n): ")
-
-            if isUserAgree == 'y' or isUserAgree == 'Y':
-                break
-            
-            print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
-        
-        print("\n\n")
-
-        self.userNickName = tempUserName                 # 이름
-        self.userLevel = 0                               # 레벨
         # 보유 쿠키 이름-레벨 딕셔너리
         self.userOwnCookieNameToLevel = {"용감한 쿠키": 1, "딸기맛 쿠키": 1, "마법사맛 쿠키": 1, "닌자맛 쿠키": 1, "근육맛 쿠키": 1}
         # 보유 쿠키 이름-전투력 딕셔너리
         self.userOwnCookieNameToCombatPower = {"용감한 쿠키": 1000, "딸기맛 쿠키": 1000, "마법사맛 쿠키": 1000, "닌자맛 쿠키": 1000, "근육맛 쿠키": 1000}
-        self.userCookiesCounter = 1                      # 보유 쿠키 수 저장
-        self.userGold = 10000                            # 골드
-        self.userDiamond = 900                           # 다이아몬드
-        self.currentStage = 1                            # 현재 스테이지 저장
-        self.frame = 3                                   # 현재 남아있는 뽑기 틀의 개수 저장
-        self.cookiePiece = 0                             # 강화에 쓸 쿠키 조각 개수 저장
+
+        # userid = ""
+        # with open("id_password.txt", 'r') as f:
+        #     data = f.read().split("\n")
+        #     for i in data:
+        #         userdata = list(i.split(":"))
+        #         if userid == userdata[0]:
+        #             userpassword = userdata[1]
+
+        login_success = False
+
+        while not login_success:
+            print("[ 로그인 / 회원가입 ]")
+            print("-" * 50)
+            print("1. 로그인")
+            print("2. 회원가입")
+            print("-" * 50)
+
+            try:
+                userInput = int(input("단축키 입력: "))
+            except ValueError:
+                print("잘못된 입력입니다. 다시 입력해 주세요.")
+                time.sleep(3)
+                print("\n" * 20)
+                continue
+
+            print("\n" * 20)
+
+            if userInput == 1:
+                userId = input("id: ")
+                user_found = False
+
+                with open("id_password.data", 'r') as f:
+                    data = f.read().splitlines()
+                    for i in data:
+                        tempData = list(i.split(":"))
+                        if userId == tempData[0]:
+                            user_found = True
+                            userPassword = input("pw: ")
+                            if userPassword == tempData[1]:
+                                print("로그인 완료")
+                                time.sleep(3)
+                                print("\n" * 20)
+                                login_success = True
+
+                                with open("game_data.data", "r") as fi:
+                                    tempDataBase = fi.read().splitlines()
+                                    for j in tempDataBase:
+                                        tempTempDataBase = list(j.split(":"))
+                                        if tempTempDataBase[0] == userId:
+                                            tempGold = tempTempDataBase[1]
+                                            tempDiamond = tempTempDataBase[2]
+                                            tempCookieFrame = tempTempDataBase[3]
+                                            tempCookiePieces = tempTempDataBase[4]
+                                            tempCurrentScenarioStage = int(tempTempDataBase[5])
+                                            tempCurrentBossBattleStage = int(tempTempDataBase[6])
+                                
+                                with open("building_data.data", 'r') as fi:
+                                    tempDataBase = fi.read().splitlines()
+                                    for j in tempDataBase:
+                                        tempTempDataBase = list(j.split(":"))
+                                        if tempTempDataBase[0] == userId:
+                                            tempBuildingCount = tempTempDataBase[1:]
+                                            print(tempTempDataBase)
+                                
+                                with open("cookie_data.data", "r") as fi:
+                                    tempDataBase = fi.read().splitlines()
+                                    for j in tempDataBase:
+                                        tempTempDataBase = list(j.split(":"))
+                                        if tempTempDataBase[0] == userId:
+                                            self.userOwnCookieNameToLevel = {}
+                                            self.userOwnCookieNameToCombatPower = {}
+                                            for k in range(1, len(tempTempDataBase), 3):
+                                                self.userOwnCookieNameToLevel[tempTempDataBase[k]] = int(tempTempDataBase[k + 1])
+                                                self.userOwnCookieNameToCombatPower[tempTempDataBase[k]] = int(tempTempDataBase[k + 2])
+
+                            else:
+                                print("잘못된 비밀번호입니다. 다시 로그인해 주세요.")
+                                time.sleep(3)
+                                print("\n" * 20)
+                            break
+
+                if not user_found:
+                    print("존재하지 않는 아이디입니다. 다시 로그인해 주세요.")
+                    time.sleep(3)
+                    print("\n" * 20)
+
+            if userInput == 2:
+                userId = input("id: ")
+                userPw = input("pw: ")
+
+                with open("id_password.data", 'r') as f:
+                    data = f.read().splitlines()
+                    
+                    alreadyExistance = False
+                    for oneDate in data:
+                        if oneDate[0] == userId or oneDate[1] == userPw:
+                            print("이미 존재하는 아이디나 비밀번호 입니다.")
+                            time.sleep(3)
+                            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
+                            alreadyExistance = True
+                            break
+                    
+                    if alreadyExistance == True:
+                        continue
+
+                with open("id_password.data", 'a') as f:
+                    f.write(f"{userId}:{userPw}\n")
+                with open("game_data.data", "a") as f:
+                    f.write(f"{userId}:{tempGold}:{tempDiamond}:{tempCookieFrame}:{tempCookiePieces}:{tempCurrentScenarioStage}:{tempCurrentBossBattleStage}\n")
+                with open("building_data.data", 'a') as f:
+                    f.write(f"{userId}:1:0:0:0:0:0\n")
+                with open("cookie_data.data", 'a') as f:
+                    f.write(f'{userId}:용감한 쿠키:1:1000:딸기맛 쿠키:1:1000:마법사맛 쿠키:1:1000:닌자맛 쿠키:1:1000:근육맛 쿠키:1:1000\n')
+                break
+            
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
+        self.userNickName = userId                          # 이름
+        self.pastUserNickName = userId                      # 과거 유저 이름(데이터 조회에 이용됨)
+        self.userGold = int(tempGold)                            # 골드
+        self.userDiamond = int(tempDiamond)                      # 다이아몬드
+        self.frame = int(tempCookieFrame)                        # 현재 남아있는 뽑기 틀의 개수 저장
+        self.cookiePiece = int(tempCookiePieces)                 # 강화에 쓸 쿠키 조각 개수 저장
         # 유저의 현제 덱 저장
         self.userCurrentDeck = ["용감한 쿠키", "딸기맛 쿠키", "마법사맛 쿠키", "닌자맛 쿠키", "근육맛 쿠키"]
-        self.userCombatPower = 5000                      # 유저의 전투력 저장
-        self.userCurrentScenarioStage = 1                # 유저의 현재 시나리오 스테이지 저장
-        self.userCurrentBossBattleStage = 1              # 유저의 현재 보스전 스테이지 저장
+        self.userCombatPower = 0                         # 유저의 전투력 저장
+        for cookie in self.userCurrentDeck:
+            self.userCombatPower += self.userOwnCookieNameToCombatPower[cookie]
+
+        self.userCurrentScenarioStage = int(tempCurrentScenarioStage)                  # 유저의 현재 시나리오 스테이지 저장
+        self.userCurrentBossBattleStage = int(tempCurrentBossBattleStage)              # 유저의 현재 보스전 스테이지 저장
         # 유저의 현재 건물의 개수 저장
-        self.userCurrentBuilding = {"쿠키의 쉼터": 1, "골드 제작소": 0, "다이아몬드 제작소": 0, "쿠키틀 제작소": 0, "쿠키 조각 제작소": 0, "암소의 텃밭": 0}
+        self.userCurrentBuilding = {"쿠키의 쉼터": int(tempBuildingCount[0]), "골드 제작소": int(tempBuildingCount[1]), "다이아몬드 제작소": int(tempBuildingCount[2]), "쿠키틀 제작소": int(tempBuildingCount[3]), "쿠키 조각 제작소": int(tempBuildingCount[4]), "암소의 텃밭": int(tempBuildingCount[5])}
 
         # 쿠폰 코드 저장 (리스트 형태로 보상이 저장 [골드, 다이아몬드, 쿠키틀, 쿠키 조각])
         self.couponCode = {"암소의 과학 공부": [10000, 3000, 100, 100], "암소의 포트폴리오": [3000, 4500, 125, 200]}
+
+        print(self.userOwnCookieNameToCombatPower)
+        print(self.userCurrentBuilding)
 
         print("-" * 50)
         print("[ 종료버튼: -1 ]")
@@ -291,9 +410,8 @@ class CookieRunKingdom:
         print("4. 쿠폰 입력")
         print("5. 프로그램 정보")
         print("6. 확률 조회")
+        print("7. 데이터 동기화")
         print("-" * 50)
-
-        print()
 
     # 상점 부분 가이드북
     def getStoreGuideBook(self):
@@ -382,6 +500,33 @@ class CookieRunKingdom:
         while True:
             newUserNickName = input("새 닉네임: ")
 
+            alreadyUsing = False
+
+            with open("id_password.data", "r") as f:
+                data = f.read().splitlines()
+                for oneData in data:
+                    proceedData = list(oneData.split(':'))
+
+                    if newUserNickName == '-1':
+                        print("게임 종료")
+                        exit()
+
+                    if newUserNickName == '0':
+                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                        return
+
+                    if proceedData[0] == newUserNickName:
+                        print("이미 존재하는 닉네임 입니다. 다시 입력해주세요.")
+                        time.sleep(3)
+
+                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
+                        alreadyUsing = True
+                        break
+                
+            if alreadyUsing == True:
+                continue
+
             isUserAgree = input(f"{newUserNickName}으로 변경하시겠습니까? (y, n): ")
 
             if isUserAgree == '-1':
@@ -389,6 +534,7 @@ class CookieRunKingdom:
                 exit()
 
             if isUserAgree == 'y' or isUserAgree == 'Y':
+                self.pastUserNickName = self.userNickName
                 self.userNickName = newUserNickName
                 print("닉네임이 성공적으로 변경되었습니다.")
                 return
@@ -420,6 +566,98 @@ class CookieRunKingdom:
         time.sleep(10)
 
         print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+        return
+    
+    # 데이터 동기화
+    def rewriteData(self):
+        with open("id_password.data", "r") as f:
+            lines = f.read().splitlines()
+
+            newLines = [line.replace(self.pastUserNickName, self.userNickName) for line in lines]
+
+            with open("id_password.data", "w") as fi:
+                for oneLine in newLines:
+                    fi.write(oneLine + '\n')
+            
+            self.pastUserNickName = self.userNickName
+        
+        with open("game_data.data", "r") as f:
+            lines = f.read().splitlines()
+
+            newLines = [line.replace(self.pastUserNickName, self.userNickName) for line in lines]
+
+            with open("game_data.data", "w") as fi:
+                for oneLine in newLines:
+                    fi.write(oneLine + '\n')
+
+        with open("building_data.data", "r") as f:
+            lines = f.read().splitlines()
+
+            newLines = [line.replace(self.pastUserNickName, self.userNickName) for line in lines]
+
+            with open("building_data.data", "w") as fi:
+                for oneLine in newLines:
+                    fi.write(oneLine + '\n')
+
+        with open("cookie_data.data", "r") as f:
+            lines = f.read().splitlines()
+
+            newLines = [line.replace(self.pastUserNickName, self.userNickName) for line in lines]
+
+            with open("cookie_data.data", "w") as fi:
+                for oneLine in newLines:
+                    fi.write(oneLine + '\n')
+
+        with open("game_data.data", "r") as f:
+            lines = f.read().splitlines()
+
+            for lineIndex in range(len(lines)):
+                data = list(lines[lineIndex].split(':'))
+
+                if data[0] == self.userNickName:
+                    userData = f'{self.userNickName}:{self.userGold}:{self.userDiamond}:{self.frame}:{self.cookiePiece}:{self.userCurrentScenarioStage}:{self.userCurrentBossBattleStage}'
+                    lines[lineIndex] = userData
+            
+            with open("game_data.data", "w") as fi:
+                for line in lines:
+                    fi.write(line + '\n')
+        
+        with open("building_data.data", "r") as f:
+            lines = f.read().splitlines()
+
+            for lineIndex in range(len(lines)):
+                data = list(lines[lineIndex].split(':'))
+
+                if data[0] == self.userNickName:
+                    userData = f'{self.userNickName}:{self.userCurrentBuilding["쿠키의 쉼터"]}:{self.userCurrentBuilding["골드 제작소"]}:{self.userCurrentBuilding["다이아몬드 제작소"]}:{self.userCurrentBuilding["쿠키틀 제작소"]}:{self.userCurrentBuilding["쿠키 조각 제작소"]}:{self.userCurrentBuilding["암소의 텃밭"]}'
+                    lines[lineIndex] = userData
+            
+            with open("building_data.data", "w") as fi:
+                for line in lines:
+                    fi.write(line + '\n')
+        
+        with open("cookie_data.data", "r") as f:
+            lines = f.read().splitlines()
+
+            for lineIndex in range(len(lines)):
+                data = list(lines[lineIndex].split(':'))
+
+                if data[0] == self.userNickName:
+                    userData = f'{self.userNickName}'
+                    for cookie in self.userOwnCookieNameToLevel.keys():
+                        userData += f':"{cookie}"'
+                        userData += f":{self.userOwnCookieNameToLevel[cookie]}"
+                        userData += f":{self.userOwnCookieNameToCombatPower[cookie]}"
+                    lines[lineIndex] = userData
+            
+            with open("cookie_data.data", "w") as fi:
+                for line in lines:
+                    fi.write(line + '\n')
+
+        print("데이터 동기화가 완료 되었습니다.")
+        time.sleep(3)
+
+        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
         return
 
     # 설정 부분 담당
@@ -502,6 +740,11 @@ class CookieRunKingdom:
                     # 확률 조회
                     if userInput == 6:
                         self.getProbablity()
+                        print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                        continue
+                    # 데이터 동기화
+                    if userInput == 7:
+                        self.rewriteData()
                         print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
                         continue
                     else:
@@ -1486,7 +1729,7 @@ class CookieRunKingdom:
                                 print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
                             elif interactBuilding == "다이아몬드 제작소":
                                 rewardDiamond = random.randint(140 + self.userCurrentBuilding["다이아몬드 제작소"] * 10, 990 + self.userCurrentBuilding["다이아몬드 제작소"] * 10)
-                                print(f"{rewardDiamond} 골드 지급")
+                                print(f"{rewardDiamond} 다이아몬드 지급")
                                 self.userDiamond += rewardDiamond
 
                                 time.sleep(3)
@@ -1494,7 +1737,7 @@ class CookieRunKingdom:
                                 print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
                             elif interactBuilding == "쿠키틀 제작소":
                                 rewardCookieFrame = random.randint(0 + self.userCurrentBuilding["쿠키틀 제작소"], 9 + self.userCurrentBuilding["쿠키틀 제작소"])
-                                print(f"{rewardCookieFrame} 골드 지급")
+                                print(f"{rewardCookieFrame} 쿠키틀 지급")
                                 self.frame += rewardCookieFrame
 
                                 time.sleep(3)
@@ -1502,7 +1745,7 @@ class CookieRunKingdom:
                                 print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
                             elif interactBuilding == "쿠키 조각 제작소":
                                 rewardCookiePiece = random.randint(4 + self.userCurrentBuilding["쿠키 조각 제작소"], 99 + self.userCurrentBuilding["쿠키 조각 제작소"])
-                                print(f"{rewardCookiePiece} 골드 지급")
+                                print(f"{rewardCookiePiece} 쿠키 조각 지급")
                                 self.cookiePiece += rewardCookiePiece
 
                                 time.sleep(3)

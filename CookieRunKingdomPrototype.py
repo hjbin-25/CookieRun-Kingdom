@@ -81,6 +81,10 @@ class CookieRunKingdom:
     def getProbablity(self):
         pass
 
+    # 데이터 동기화
+    def rewriteData(self):
+        pass
+
     # 설정 부분 담당
     def setting(self):
         pass
