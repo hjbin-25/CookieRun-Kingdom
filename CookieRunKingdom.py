@@ -564,7 +564,7 @@ class CookieRunKingdom:
         print("rare: 25%")
         print("epic: 25%")
         print("legendary: 10%")
-        print("acient: 9%")
+        print("ancient: 9%")
         print("beast: 1%")
         print("-" * 50)
 
@@ -775,6 +775,19 @@ class CookieRunKingdom:
                                     lines[lineIndex] = ""
                             
                             with open("user_deck.data", "w") as fi:
+                                for line in lines:
+                                    fi.write(line + '\n')
+                        
+                        with open("id_password.data", "r") as f:
+                            lines = f.read().splitlines()
+
+                            for lineIndex in range(len(lines)):
+                                data = list(lines[lineIndex].split(':'))
+
+                                if data[0] == self.userNickName:
+                                    lines[lineIndex] = ""
+                            
+                            with open("id_password.data", "w") as fi:
                                 for line in lines:
                                     fi.write(line + '\n')
 
@@ -1656,6 +1669,7 @@ class CookieRunKingdom:
                         time.sleep(3)
 
                         print("\n\n\n\n\n\n\n\n\n\n\n\n")
+                        break
                     else:
                         print("\n\n\n\n\n\n\n\n")
                         print("보유하지 않거나 존재하지 않는 쿠키입니다.")
