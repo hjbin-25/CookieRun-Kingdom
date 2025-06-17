@@ -233,6 +233,8 @@ class CookieRunKingdom:
         self.userOwnCookieNameToLevel = {"용감한 쿠키": 1, "딸기맛 쿠키": 1, "마법사맛 쿠키": 1, "닌자맛 쿠키": 1, "근육맛 쿠키": 1}
         # 보유 쿠키 이름-전투력 딕셔너리
         self.userOwnCookieNameToCombatPower = {"용감한 쿠키": 1000, "딸기맛 쿠키": 1000, "마법사맛 쿠키": 1000, "닌자맛 쿠키": 1000, "근육맛 쿠키": 1000}
+        # 유저의 현제 덱 저장
+        self.userCurrentDeck = ["용감한 쿠키", "딸기맛 쿠키", "마법사맛 쿠키", "닌자맛 쿠키", "근육맛 쿠키"]
 
         # userid = ""
         # with open("id_password.txt", 'r') as f:
@@ -296,8 +298,14 @@ class CookieRunKingdom:
                                         tempTempDataBase = list(j.split(":"))
                                         if tempTempDataBase[0] == userId:
                                             tempBuildingCount = tempTempDataBase[1:]
-                                            print(tempTempDataBase)
                                 
+                                with open("user_deck.data", 'r') as fi:
+                                    tempDataBase = fi.read().splitlines()
+                                    for j in tempDataBase:
+                                        tempTempDataBase = list(j.split(":"))
+                                        if tempTempDataBase[0] == userId:
+                                            self.userCurrentDeck = tempTempDataBase[1:]
+
                                 with open("cookie_data.data", "r") as fi:
                                     tempDataBase = fi.read().splitlines()
                                     for j in tempDataBase:
@@ -348,19 +356,19 @@ class CookieRunKingdom:
                     f.write(f"{userId}:1:0:0:0:0:0\n")
                 with open("cookie_data.data", 'a') as f:
                     f.write(f'{userId}:용감한 쿠키:1:1000:딸기맛 쿠키:1:1000:마법사맛 쿠키:1:1000:닌자맛 쿠키:1:1000:근육맛 쿠키:1:1000\n')
+                with open("user_deck.data", 'a') as f:
+                    f.write(f'{userId}:용감한 쿠키:딸기맛 쿠키:마법사맛 쿠키:닌자맛 쿠키:근육맛 쿠키\n')
                 break
             
         print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
         self.userNickName = userId                          # 이름
         self.pastUserNickName = userId                      # 과거 유저 이름(데이터 조회에 이용됨)
-        self.userGold = int(tempGold)                            # 골드
-        self.userDiamond = int(tempDiamond)                      # 다이아몬드
-        self.frame = int(tempCookieFrame)                        # 현재 남아있는 뽑기 틀의 개수 저장
-        self.cookiePiece = int(tempCookiePieces)                 # 강화에 쓸 쿠키 조각 개수 저장
-        # 유저의 현제 덱 저장
-        self.userCurrentDeck = ["용감한 쿠키", "딸기맛 쿠키", "마법사맛 쿠키", "닌자맛 쿠키", "근육맛 쿠키"]
-        self.userCombatPower = 0                         # 유저의 전투력 저장
+        self.userGold = int(tempGold)                       # 골드
+        self.userDiamond = int(tempDiamond)                 # 다이아몬드
+        self.frame = int(tempCookieFrame)                   # 현재 남아있는 뽑기 틀의 개수 저장
+        self.cookiePiece = int(tempCookiePieces)            # 강화에 쓸 쿠키 조각 개수 저장
+        self.userCombatPower = 0                            # 유저의 전투력 저장
         for cookie in self.userCurrentDeck:
             self.userCombatPower += self.userOwnCookieNameToCombatPower[cookie]
 
@@ -371,9 +379,6 @@ class CookieRunKingdom:
 
         # 쿠폰 코드 저장 (리스트 형태로 보상이 저장 [골드, 다이아몬드, 쿠키틀, 쿠키 조각])
         self.couponCode = {"암소의 과학 공부": [10000, 3000, 100, 100], "암소의 포트폴리오": [3000, 4500, 125, 200]}
-
-        print(self.userOwnCookieNameToCombatPower)
-        print(self.userCurrentBuilding)
 
         print("-" * 50)
         print("[ 종료버튼: -1 ]")
@@ -607,6 +612,15 @@ class CookieRunKingdom:
             with open("cookie_data.data", "w") as fi:
                 for oneLine in newLines:
                     fi.write(oneLine + '\n')
+        
+        with open("user_deck.data", "r") as f:
+            lines = f.read().splitlines()
+
+            newLines = [line.replace(self.pastUserNickName, self.userNickName) for line in lines]
+
+            with open("user_deck.data", "w") as fi:
+                for oneLine in newLines:
+                    fi.write(oneLine + '\n')
 
         with open("game_data.data", "r") as f:
             lines = f.read().splitlines()
@@ -651,6 +665,20 @@ class CookieRunKingdom:
                     lines[lineIndex] = userData
             
             with open("cookie_data.data", "w") as fi:
+                for line in lines:
+                    fi.write(line + '\n')
+
+        with open("user_deck.data", "r") as f:
+            lines = f.read().splitlines()
+
+            for lineIndex in range(len(lines)):
+                data = list(lines[lineIndex].split(':'))
+
+                if data[0] == self.userNickName:
+                    userData = f'{self.userNickName}:{self.userCurrentDeck[0]}:{self.userCurrentDeck[1]}:{self.userCurrentDeck[2]}:{self.userCurrentDeck[3]}:{self.userCurrentDeck[4]}'
+                    lines[lineIndex] = userData
+            
+            with open("user_deck.data", "w") as fi:
                 for line in lines:
                     fi.write(line + '\n')
 
@@ -734,6 +762,19 @@ class CookieRunKingdom:
                                     lines[lineIndex] = ""
                             
                             with open("cookie_data.data", "w") as fi:
+                                for line in lines:
+                                    fi.write(line + '\n')
+                        
+                        with open("user_deck.data", "r") as f:
+                            lines = f.read().splitlines()
+
+                            for lineIndex in range(len(lines)):
+                                data = list(lines[lineIndex].split(':'))
+
+                                if data[0] == self.userNickName:
+                                    lines[lineIndex] = ""
+                            
+                            with open("user_deck.data", "w") as fi:
                                 for line in lines:
                                     fi.write(line + '\n')
 
