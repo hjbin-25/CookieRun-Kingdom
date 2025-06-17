@@ -697,6 +697,46 @@ class CookieRunKingdom:
                         continue
                     # 계정 삭제
                     if userInput == 3:
+                        with open("game_data.data", "r") as f:
+                            lines = f.read().splitlines()
+
+                            for lineIndex in range(len(lines)):
+                                data = list(lines[lineIndex].split(':'))
+
+                                if data[0] == self.userNickName:
+                                    lines[lineIndex] = ""
+                            
+                            with open("game_data.data", "w") as fi:
+                                for line in lines:
+                                    fi.write(line + '\n')
+                        
+                        with open("building_data.data", "r") as f:
+                            lines = f.read().splitlines()
+
+                            for lineIndex in range(len(lines)):
+                                data = list(lines[lineIndex].split(':'))
+
+                                if data[0] == self.userNickName:
+
+                                    lines[lineIndex] = ""
+                            
+                            with open("building_data.data", "w") as fi:
+                                for line in lines:
+                                    fi.write(line + '\n')
+                        
+                        with open("cookie_data.data", "r") as f:
+                            lines = f.read().splitlines()
+
+                            for lineIndex in range(len(lines)):
+                                data = list(lines[lineIndex].split(':'))
+
+                                if data[0] == self.userNickName:
+                                    lines[lineIndex] = ""
+                            
+                            with open("cookie_data.data", "w") as fi:
+                                for line in lines:
+                                    fi.write(line + '\n')
+
                         print("계정 삭제 완료")
                         exit()
                     # 쿠폰 입력

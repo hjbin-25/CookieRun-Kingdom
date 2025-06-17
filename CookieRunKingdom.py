@@ -645,7 +645,7 @@ class CookieRunKingdom:
                 if data[0] == self.userNickName:
                     userData = f'{self.userNickName}'
                     for cookie in self.userOwnCookieNameToLevel.keys():
-                        userData += f':"{cookie}"'
+                        userData += f':{cookie}'
                         userData += f":{self.userOwnCookieNameToLevel[cookie]}"
                         userData += f":{self.userOwnCookieNameToCombatPower[cookie]}"
                     lines[lineIndex] = userData
@@ -697,8 +697,60 @@ class CookieRunKingdom:
                         continue
                     # 계정 삭제
                     if userInput == 3:
+                        with open("game_data.data", "r") as f:
+                            lines = f.read().splitlines()
+
+                            for lineIndex in range(len(lines)):
+                                data = list(lines[lineIndex].split(':'))
+
+                                if data[0] == self.userNickName:
+                                    lines[lineIndex] = ""
+                            
+                            with open("game_data.data", "w") as fi:
+                                for line in lines:
+                                    fi.write(line + '\n')
+                        
+                        with open("building_data.data", "r") as f:
+                            lines = f.read().splitlines()
+
+                            for lineIndex in range(len(lines)):
+                                data = list(lines[lineIndex].split(':'))
+
+                                if data[0] == self.userNickName:
+                                    lines[lineIndex] = ""
+                            
+                            with open("building_data.data", "w") as fi:
+                                for line in lines:
+                                    fi.write(line + '\n')
+                        
+                        with open("cookie_data.data", "r") as f:
+                            lines = f.read().splitlines()
+
+                            for lineIndex in range(len(lines)):
+                                data = list(lines[lineIndex].split(':'))
+
+                                if data[0] == self.userNickName:
+                                    lines[lineIndex] = ""
+                            
+                            with open("cookie_data.data", "w") as fi:
+                                for line in lines:
+                                    fi.write(line + '\n')
+                        
+                        with open("id_password.data", "r") as f:
+                            lines = f.read().splitlines()
+
+                            for lineIndex in range(len(lines)):
+                                data = list(lines[lineIndex].split(':'))
+
+                                if data[0] == self.userNickName:
+                                    lines[lineIndex] = ""
+                            
+                            with open("id_password.data", "w") as fi:
+                                for line in lines:
+                                    fi.write(line + '\n')
                         print("계정 삭제 완료")
                         exit()
+
                     # 쿠폰 입력
                     if userInput == 4:
                         while True:
