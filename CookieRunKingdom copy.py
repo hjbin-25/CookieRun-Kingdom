@@ -1656,6 +1656,7 @@ class CookieRunKingdom:
                         time.sleep(3)
 
                         print("\n\n\n\n\n\n\n\n\n\n\n\n")
+                        break
                     else:
                         print("\n\n\n\n\n\n\n\n")
                         print("보유하지 않거나 존재하지 않는 쿠키입니다.")
