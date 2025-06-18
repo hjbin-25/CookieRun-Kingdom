@@ -745,7 +745,6 @@ class CookieRunKingdom:
                                 data = list(lines[lineIndex].split(':'))
 
                                 if data[0] == self.userNickName:
-
                                     lines[lineIndex] = ""
                             
                             with open("building_data.data", "w") as fi:
@@ -879,6 +878,8 @@ class CookieRunKingdom:
                 self.cookiePiece += 5
                 time.sleep(3)
 
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
         elif chosenResult <= 55:
             appendCookie = rareCookiesList[random.randint(0, len(rareCookiesList) - 1)]
 
@@ -890,6 +891,8 @@ class CookieRunKingdom:
                 self.cookiePiece += 10
                 time.sleep(3)
 
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+
         elif chosenResult <= 80:
             appendCookie = epicCookiesList[random.randint(0, len(epicCookiesList) - 1)]
             
@@ -900,6 +903,8 @@ class CookieRunKingdom:
                 print("쿠키 조각 25개\n")
                 self.cookiePiece += 25
                 time.sleep(3)
+
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
         
         elif chosenResult <= 90:
             appendCookie = legendaryCookiesList[random.randint(0, len(legendaryCookiesList) - 1)]
@@ -911,6 +916,8 @@ class CookieRunKingdom:
                 print("쿠키 조각 75개\n")
                 self.cookiePiece += 75
                 time.sleep(3)
+
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
         
         elif chosenResult <= 99:
             appendCookie = ancientCookiesList[random.randint(0, len(ancientCookiesList) - 1)]
@@ -922,6 +929,8 @@ class CookieRunKingdom:
                 print("쿠키 조각 50개\n")
                 self.cookiePiece += 50
                 time.sleep(3)
+
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
         
         else:
             appendCookie = beastCookiesList[random.randint(0, len(beastCookiesList) - 1)]
@@ -933,6 +942,8 @@ class CookieRunKingdom:
                 print("쿠키 조각 100개\n")
                 self.cookiePiece += 100
                 time.sleep(3)
+
+                print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
         
         if appendCookie not in self.userOwnCookieNameToLevel.keys():
             print("-" * 50)
@@ -942,7 +953,7 @@ class CookieRunKingdom:
 
             self.userOwnCookieNameToLevel[appendCookie] = 1
             self.userOwnCookieNameToCombatPower[appendCookie] = additionalCombatPower
-            print("\n\n\n\n\n\n\n\n\n\n")
+            print("\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
             return
     
     # 쿠키틀 뽑기 최적화
@@ -1164,7 +1175,7 @@ class CookieRunKingdom:
             tryStage = 0
             print("[ 시나리오 ]")
             try:
-                tryStage = int(input("시도할 스테이지를 입력하세요: "))
+                tryStage = int(input(f"시도할 스테이지를 입력하세요(1~{self.userCurrentScenarioStage}): "))
             # 이상값 확인
             except ValueError:
                 print("잘못된 입력입니다. 다시 입력해주세요.")
@@ -1237,7 +1248,7 @@ class CookieRunKingdom:
             tryStage = 0
             print("[ 보스전 ]")
             try:
-                tryStage = int(input("시도할 스테이지를 입력하세요: "))
+                tryStage = int(input(f"시도할 스테이지를 입력하세요(1~{self.userCurrentBossBattleStage}): "))
             # 이상값 확인
             except ValueError:
                 print("잘못된 입력입니다. 다시 입력해주세요.")
