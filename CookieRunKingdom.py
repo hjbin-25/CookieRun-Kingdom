@@ -659,7 +659,7 @@ class CookieRunKingdom:
                 if data[0] == self.userNickName:
                     userData = f'{self.userNickName}'
                     for cookie in self.userOwnCookieNameToLevel.keys():
-                        userData += f':"{cookie}"'
+                        userData += f':{cookie}'
                         userData += f":{self.userOwnCookieNameToLevel[cookie]}"
                         userData += f":{self.userOwnCookieNameToCombatPower[cookie]}"
                     lines[lineIndex] = userData
