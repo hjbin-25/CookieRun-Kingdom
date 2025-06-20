@@ -275,6 +275,7 @@ class CookieRunKingdom:
                     data = f.read().splitlines()
                     for i in data:
                         tempData = list(i.split(":"))
+                        
                         if userId == tempData[0]:
                             user_found = True
                             userPassword = input("pw: ")
