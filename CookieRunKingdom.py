@@ -1451,6 +1451,8 @@ class CookieRunKingdom:
                     print("-" * 50)
                     print(f"[ {interactCookie} ]")
                     print(allCookiesInfo[interactCookie])
+                    print(f"레벨: {self.userOwnCookieNameToLevel[interactCookie]}")
+                    print(f"전투력: {self.userOwnCookieNameToCombatPower[interactCookie]}")
                     print("-" * 50)
                     time.sleep(5)
 
@@ -1461,6 +1463,8 @@ class CookieRunKingdom:
                 if userInput == 2:
                     print("\n\n\n\n\n\n\n\n\n\n")
                     del self.userOwnCookieNameToLevel[interactCookie]
+                    if interactCookie in self.userCurrentDeck:
+                        del self.userCurrentDeck[interactCookie]
                     print(f"{interactCookie} 삭제 완료")
                     time.sleep(1)
                     print("\n\n\n\n\n\n\n")
