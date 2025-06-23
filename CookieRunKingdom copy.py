@@ -1172,7 +1172,7 @@ class CookieRunKingdom:
             tryStage = 0
             print("[ 시나리오 ]")
             try:
-                tryStage = int(input("시도할 스테이지를 입력하세요: "))
+                tryStage = int(input(f"시도할 스테이지를 입력하세요(1~{self.userCurrentScenarioStage}): "))
             # 이상값 확인
             except ValueError:
                 print("잘못된 입력입니다. 다시 입력해주세요.")
@@ -1245,7 +1245,7 @@ class CookieRunKingdom:
             tryStage = 0
             print("[ 보스전 ]")
             try:
-                tryStage = int(input("시도할 스테이지를 입력하세요: "))
+                tryStage = int(input(f"시도할 스테이지를 입력하세요(1~{self.userCurrentBossBattleStage}): "))
             # 이상값 확인
             except ValueError:
                 print("잘못된 입력입니다. 다시 입력해주세요.")
