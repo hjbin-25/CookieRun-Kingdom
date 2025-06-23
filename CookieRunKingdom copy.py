@@ -263,6 +263,10 @@ class CookieRunKingdom:
 
             print("\n" * 20)
 
+            if userInput == -1:
+                print("게임 종료")
+                exit()
+
             if userInput == 1:
                 userId = input("id: ")
                 user_found = False
@@ -271,6 +275,7 @@ class CookieRunKingdom:
                     data = f.read().splitlines()
                     for i in data:
                         tempData = list(i.split(":"))
+                        
                         if userId == tempData[0]:
                             user_found = True
                             userPassword = input("pw: ")
@@ -328,6 +333,8 @@ class CookieRunKingdom:
                     time.sleep(3)
                     print("\n" * 20)
 
+            alreadyExistance = False
+
             if userInput == 2:
                 userId = input("id: ")
                 userPw = input("pw: ")
@@ -335,8 +342,8 @@ class CookieRunKingdom:
                 with open("id_password.data", 'r') as f:
                     data = f.read().splitlines()
                     
-                    alreadyExistance = False
                     for oneDate in data:
+                        oneDate = oneDate.split(":")
                         if oneDate[0] == userId or oneDate[1] == userPw:
                             print("이미 존재하는 아이디나 비밀번호 입니다.")
                             time.sleep(3)
@@ -347,18 +354,19 @@ class CookieRunKingdom:
                     
                     if alreadyExistance == True:
                         continue
-
-                with open("id_password.data", 'a') as f:
-                    f.write(f"{userId}:{userPw}\n")
-                with open("game_data.data", "a") as f:
-                    f.write(f"{userId}:{tempGold}:{tempDiamond}:{tempCookieFrame}:{tempCookiePieces}:{tempCurrentScenarioStage}:{tempCurrentBossBattleStage}\n")
-                with open("building_data.data", 'a') as f:
-                    f.write(f"{userId}:1:0:0:0:0:0\n")
-                with open("cookie_data.data", 'a') as f:
-                    f.write(f'{userId}:용감한 쿠키:1:1000:딸기맛 쿠키:1:1000:마법사맛 쿠키:1:1000:닌자맛 쿠키:1:1000:근육맛 쿠키:1:1000\n')
-                with open("user_deck.data", 'a') as f:
-                    f.write(f'{userId}:용감한 쿠키:딸기맛 쿠키:마법사맛 쿠키:닌자맛 쿠키:근육맛 쿠키\n')
-                break
+                
+                if alreadyExistance == False:
+                    with open("id_password.data", 'a') as f:
+                        f.write(f"{userId}:{userPw}\n")
+                    with open("game_data.data", "a") as f:
+                        f.write(f"{userId}:{tempGold}:{tempDiamond}:{tempCookieFrame}:{tempCookiePieces}:{tempCurrentScenarioStage}:{tempCurrentBossBattleStage}\n")
+                    with open("building_data.data", 'a') as f:
+                        f.write(f"{userId}:1:0:0:0:0:0\n")
+                    with open("cookie_data.data", 'a') as f:
+                        f.write(f'{userId}:용감한 쿠키:1:1000:딸기맛 쿠키:1:1000:마법사맛 쿠키:1:1000:닌자맛 쿠키:1:1000:근육맛 쿠키:1:1000\n')
+                    with open("user_deck.data", 'a') as f:
+                        f.write(f'{userId}:용감한 쿠키:딸기맛 쿠키:마법사맛 쿠키:닌자맛 쿠키:근육맛 쿠키\n')
+                    break
             
         print("\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
@@ -1443,6 +1451,8 @@ class CookieRunKingdom:
                     print("-" * 50)
                     print(f"[ {interactCookie} ]")
                     print(allCookiesInfo[interactCookie])
+                    print(f"레벨: {self.userOwnCookieNameToLevel[interactCookie]}")
+                    print(f"전투력: {self.userOwnCookieNameToCombatPower[interactCookie]}")
                     print("-" * 50)
                     time.sleep(5)
 
@@ -1453,6 +1463,8 @@ class CookieRunKingdom:
                 if userInput == 2:
                     print("\n\n\n\n\n\n\n\n\n\n")
                     del self.userOwnCookieNameToLevel[interactCookie]
+                    if interactCookie in self.userCurrentDeck:
+                        del self.userCurrentDeck[interactCookie]
                     print(f"{interactCookie} 삭제 완료")
                     time.sleep(1)
                     print("\n\n\n\n\n\n\n")
